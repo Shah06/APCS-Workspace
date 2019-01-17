@@ -1,0 +1,26 @@
+FUNCTIONAL TEST
+
+EFFICIENCY TEST - 10
+
+EFFICIENCY TEST - 100
+
+EFFICIENCY TEST - 1000
+The test took 14 milliseconds.
+And 8208 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 2042]}
+
+EFFICIENCY TEST - 10000
+The test took 80 milliseconds.
+And 80136 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 20025]}
+
+EFFICIENCY TEST - 100000
+The test took 5773 milliseconds.
+And 800240 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 200051]}

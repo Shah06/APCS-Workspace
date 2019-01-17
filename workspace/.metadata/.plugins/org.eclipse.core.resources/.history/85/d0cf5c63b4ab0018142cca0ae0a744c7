@@ -1,0 +1,41 @@
+import processing.core.PApplet;
+
+public class House {
+	
+	private int x, y;
+	private float scale;
+	
+	public House() {
+		scale = 1f;
+	}
+	
+	
+	public void draw(PApplet drawer) {
+		drawer.translate(x, y);
+		drawer.scale(scale, scale);
+		drawer.noFill();
+		drawer.scale(1.3f, 1.3f);
+		drawer.rect(100, 100, 200, 100);
+		drawer.triangle(100, 100, 300, 100, 200, 25);
+		drawer.rect(185, 150, 30, 50); //door
+		drawer.rect(125, 140, 30, 30); //window
+		drawer.rect(245, 140, 30, 30); //window
+	}
+	
+	
+	public void scaleUp() {
+		this.scale += 0.25;
+	}
+	
+	public void scaleDown() {
+		this.scale -= 0.25;
+	}
+	
+	public void move(int x, int y) {
+		// TODO
+		this.x = x;
+		this.y = y;
+	}
+	
+	
+}

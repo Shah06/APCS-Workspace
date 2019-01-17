@@ -1,0 +1,25 @@
+import processing.core.PApplet;
+
+public class Person {
+	
+	private int x, y;
+	
+	public Person() {
+		
+	}
+	
+	public void draw(PApplet drawer) {
+		//TODO
+		drawer.translate(x, y);
+		drawer.noFill();
+		drawer.rect(50, 50, 50, 50);
+		drawer.line(75, 100, 75, 170);
+	}
+	
+	public void move(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	
+}

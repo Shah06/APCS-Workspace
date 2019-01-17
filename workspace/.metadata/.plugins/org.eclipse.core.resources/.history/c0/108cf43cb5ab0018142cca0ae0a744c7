@@ -1,0 +1,45 @@
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import processing.awt.PSurfaceAWT;
+import processing.core.PApplet;
+
+public class DrawingSurface extends PApplet {
+	
+	private House house;
+	private Person person;
+	
+	public DrawingSurface() {
+		house = new House();
+		person = new Person();
+	}
+	
+	public void draw() {
+		background(255);
+		house.draw(this);
+		person.draw(this);
+	}
+	
+	public void mousePressed() {
+		house.move(mouseX-250, mouseY-150);
+	}
+	
+	public void keyPressed() {
+		if (keyCode == UP) {
+			//TODO
+			house.scaleUp();
+		}
+		else if (keyCode == DOWN) {
+			//TODO
+			house.scaleDown();
+		}
+		
+		// add WASD for person
+	}
+	
+	
+	
+	
+	
+	
+
+}

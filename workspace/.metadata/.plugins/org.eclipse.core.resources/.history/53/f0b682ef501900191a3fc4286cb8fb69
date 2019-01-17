@@ -1,0 +1,201 @@
+import java.util.Arrays;
+
+/**
+ * 
+ * @author atharva shah
+ *
+ * @param <E> type of Object() ResizableArray is initialized with
+ */
+public class ResizableArray<E> {
+	
+	private Object[] data;
+	private final int BASE_DATA_AMOUNT = 30;
+	private int blocksize = 50;
+	private int size = 0; // number of actual pieces of data
+	
+	
+	public ResizableArray() {
+		data = new Object[BASE_DATA_AMOUNT];
+	}
+	
+
+	public ResizableArray(E[] values) {
+		this();
+		if (values.length > BASE_DATA_AMOUNT) throw new IllegalArgumentException();
+		for (int i = 0; i < values.length; i++) {
+			data[i] = values[i];
+		}
+		size = values.length;
+	}
+
+	public ResizableArray(int length) {
+		data = new Object[length];
+	}
+
+	public ResizableArray(ResizableArray<E> other) {
+		size = other.size;
+		data = other.toArray();
+	}
+
+	public void setBlockSize(int value) {
+		blocksize = value;
+	}
+
+	public int getBlockSize() {
+		return blocksize;
+	}
+
+	@SuppressWarnings("unchecked")
+	public E get(int index) {
+		if (index < 0 || index > size-1) throw new IllegalArgumentException(); // prevents from accessing garbage data
+		return (E) data[index];
+	}
+
+	public void add(E value) {
+		data[size] = value;
+		checkMem();
+		size++;
+	}
+
+	public void add(E[] values) {
+		for (int i = 0; i < values.length; i++) {
+			add(values[i]);
+		}
+	}
+
+	public void add(ResizableArray<E> values) {
+		E[] temp = values.toArray();
+		add(temp);
+	}
+
+	public E remove(int index) {
+		E temp = get(index);
+		for (int i = index; i < size; i++) {
+			data[i] = data[i+1];
+		}
+		size--;
+		return temp;
+	}
+
+	public void removeAll(E value) {
+		for (int i = 0; i < size; i++) {
+			if (value == get(i)) {
+				remove(i);
+			}
+		}
+	}
+
+	public void replaceAll(E oldVal, E newVal) {
+		for (int i = 0; i < size; i++) {
+			if (oldVal == get(i)) {
+				set(i, newVal);
+			}
+		}
+	}
+
+	public void clear() {
+		Object[] temp = new Object[BASE_DATA_AMOUNT];
+		data = temp;
+		size = 0;
+	}
+
+	public void reverse() {
+		for (int i = 0; i < size/2; i ++) {
+			Object temp = data[i];
+			data[i] = data[size-i-1];
+			data[size-i-1] = temp;
+		}
+	}
+
+	public int size() {
+		return size;
+	}
+
+	public String toString() {
+		String temp = new String("[");
+		for (int i = 0; i < size; i++) {
+			temp = temp + data[i];
+			if (i != size-1) {
+				temp = temp + ", ";
+			}
+		}
+		temp = temp + "]";
+		return temp;
+	}
+
+	public void insert(int index, E value) {
+		if (index < 0 || index > size) throw new IllegalArgumentException();
+		checkMem();
+		for (int i = size; i > index-1; i--) {
+			data[i+1] = data[i];
+		}
+		data[index] = value;
+		size++;
+	}
+
+	public void set(int index, E value) {
+		if (index < 0 || index > size-1) throw new IllegalArgumentException();
+		data[index] = value;
+	}
+
+	public void sort() {
+		Arrays.sort(data, 0, size);
+	}
+
+	public int indexOf(E value) {
+		for (int i = 0; i < size; i++) {
+			if (data[i] == value) return i;
+		}
+		return -1;
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean equals(Object other) {
+		if (!(other instanceof ResizableArray)) { // checks type equality
+			return false;
+		}
+		ResizableArray<E> temp = (ResizableArray<E>) other;
+		if (temp.size != this.size) return false;
+		for (int i = 0; i < size; i++) {
+			if (temp.get(i) != this.get(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	public E[] toArray() {
+//		E[] temp = (E[]) new Object[size];
+//		for (int i = 0; i < size; i++) {
+//			temp[i] = data[i];
+//		}
+		return (E[]) Arrays.copyOf(data, size);
+	}
+
+	/**
+	 * 
+	 * @param start start index, inclusive
+	 * @param end end index, exclusive
+	 * @return ResizableArray<E>
+	 */
+	@SuppressWarnings("unchecked")
+	public ResizableArray<E> subArray (int start, int end) {
+		if (end > size) throw new IllegalArgumentException(); // prevent accessing garbage data
+		return new ResizableArray<E>((E[]) Arrays.copyOfRange(data, start, end));
+	}
+
+	private void checkMem() {
+		if (size+1 == data.length) {
+//			int len = data.length;
+//			System.out.println("space = " + len);
+			// create new array with more elements
+			Object[] temp = new Object[size + blocksize];
+			for (int i = 0; i < size; i++) {
+				temp[i] = data[i];
+			}
+			data = temp;
+		}
+	}
+	
+}

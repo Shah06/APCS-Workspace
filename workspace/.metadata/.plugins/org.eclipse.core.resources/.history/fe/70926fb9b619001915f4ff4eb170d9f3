@@ -1,0 +1,142 @@
+FUNCTIONAL TEST
+[1, 1, 2, 3, 5, 8, 13]
+0
+4
+6
+-1
+true
+false
+Caught exception from a bad insert (this is a good thing). Message: null
+Caught exception from a bad remove (this is also a good thing). Message: null
+[1, 1, 2, 3, 5, 8, 13]
+true
+[1, 5, 2, 3, 5, 8, 13]
+[1, 1, 2, 3, 5, 8, 13]
+The test took 4 milliseconds.
+And 168 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 33]}
+
+
+
+EFFICIENCY TEST - 10
+The test took 4 milliseconds.
+And 168 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 33]}
+
+
+
+EFFICIENCY TEST - 100
+The test took 4 milliseconds.
+And 952 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 229]}
+
+
+
+EFFICIENCY TEST - 1000
+The test took 14 milliseconds.
+And 8208 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 2042]}
+
+
+
+EFFICIENCY TEST - 10000
+The test took 80 milliseconds.
+And 80136 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 20025]}
+
+
+
+EFFICIENCY TEST - 100000
+The test took 5773 milliseconds.
+And 800240 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=2, References=1, Primitives=[int x 200051]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUNCTIONAL TEST
+[1, 1, 2, 3, 5, 8, 13]
+0
+4
+6
+-1
+true
+false
+Caught exception from a bad insert (this is a good thing). Message: null
+Caught exception from a bad remove (this is also a good thing). Message: null
+[1, 1, 2, 3, 5, 8, 13]
+true
+[1, 5, 2, 3, 5, 8, 13]
+[1, 1, 2, 3, 5, 8, 13]
+The test took 17 milliseconds.
+And 264 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=8, References=31, Primitives=[int x 9]}
+
+
+
+EFFICIENCY TEST - 10
+The test took 11 milliseconds.
+And 328 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=12, References=31, Primitives=[int x 13]}
+
+
+
+EFFICIENCY TEST - 100
+The test took 8 milliseconds.
+And 2520 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=100, References=227, Primitives=[int x 101]}
+
+
+
+EFFICIENCY TEST - 1000
+The test took 30 milliseconds.
+And 24064 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=993, References=2040, Primitives=[int x 994]}
+
+
+
+EFFICIENCY TEST - 10000
+The test took 139 milliseconds.
+And 238520 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=9901, References=20023, Primitives=[int x 9902]}
+
+
+
+EFFICIENCY TEST - 100000
+The test took 11357 milliseconds.
+And 2383184 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=98936, References=200049, Primitives=[int x 98937]}

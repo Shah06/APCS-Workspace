@@ -1,0 +1,41 @@
+
+public class Tester {
+	public static void main(String[] args) {
+		ResizableArray test1 = new ResizableArray();
+		ResizableArray test2 = new ResizableArray();
+//		test1.add(new Integer(100));
+//		test2.add(new String("askdjfhas"));
+//		test1.add((Object) 100);
+//		test2.add(new Double(40.12));
+//		test1.add(test1.size(), new String("test"));
+		
+		// test1.addTo(null);
+		
+		test1.add(234);
+		test1.add(34);
+//		test2.add(234);
+//		test2.add(34);
+//		test2.insert(2, 24);
+		
+//		test1.sort();
+		System.out.println(test1);
+//		System.out.println(test2);
+		test1.add(test2);
+		
+		test1.set(1, 300);
+		test1.add(1);
+		test1.add(1);
+		test1.add(2);
+		test1.add(2);
+		System.out.println(test1);
+		test1.insert(0, 56);
+		//test1.sort();
+		System.out.println(test1);
+//		System.out.println(test2);
+		
+		//System.out.println(test1.indexOf(0));
+		
+		
+		System.out.println("" + test1.equals(test2));
+	}
+}
