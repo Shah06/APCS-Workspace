@@ -11,4 +11,5 @@
 <fullyQualifiedTypeName name="objectexplorer.MemoryMeasurer"/>
 <fullyQualifiedTypeName name="objectexplorer.ObjectGraphMeasurer"/>
 <fullyQualifiedTypeName name="objectexplorer.ObjectGraphMeasurer.Footprint"/>
+<fullyQualifiedTypeName name="java.awt.geom.Point2D.Double"/>
 </qualifiedTypeNameHistroy>

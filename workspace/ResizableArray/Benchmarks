@@ -2,7 +2,6 @@
 ===BENCHMARKING W/O GENERICS===
 ===============================
 
-
 FUNCTIONAL TEST
 [1, 1, 2, 3, 5, 8, 13]
 0
@@ -75,7 +74,6 @@ Footprint{Objects=2, References=1, Primitives=[int x 200051]}
 ================================
 ===BENCHMARKING WITH GENERICS===
 ================================
-
 
 FUNCTIONAL TEST
 [1, 1, 2, 3, 5, 8, 13]
@@ -162,7 +160,11 @@ Footprint{Objects=100002, References=240098, Primitives=[int x 100002]}
 ArrayList ran ~3.535 times faster (3213 milliseconds vs 11357 milliseconds)
 ResizableArray used 177248 bytes, or 7.44% less memory
 
-PREDICTION for random=false: 2950 milliseconds (memory stays the same)
+
+=======================================================
+===============PREDICTION FOR INDEX=0==================
+=======================================================
+PREDICTION for random=false: 7231 milliseconds (memory stays the same)
 
 The test took 6609 milliseconds.
 And 2560432 bytes of memory.
@@ -171,4 +173,18 @@ Your ResizableArray contains the following:
 Footprint{Objects=100002, References=240098, Primitives=[int x 100002]}
 
 REASONING
-Why the runtime doubled? Because it's inserting at index 0 every time.
+Why did the runtime double? Because it's inserting at index 0 every time.
+
+
+=======================================================
+==============PREDICTION FOR INDEX=SIZE================
+=======================================================
+PREDICTON for inserting at end, removing from end: 123 milliseconds
+The test took 13 milliseconds.
+And 2560432 bytes of memory.
+
+Your ResizableArray contains the following: 
+Footprint{Objects=100002, References=240098, Primitives=[int x 100002]}
+
+REASONING
+Why did the runtime shrink drastically? elements in the array didn't have to be shifted over each time something was inserted/deleted

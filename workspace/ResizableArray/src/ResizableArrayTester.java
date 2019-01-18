@@ -213,7 +213,7 @@ public class ResizableArrayTester {
 				tester.add((int)(Math.random() * (size+i)),(int)(Math.random() * 1000000000));
 		} else {
 			for (int i = num-1; i >= 0; i--)
-				tester.add(0,i);
+				tester.add(tester.size(),i);
 		}
 
 	}
@@ -227,7 +227,7 @@ public class ResizableArrayTester {
 				tester.remove((int)(Math.random() * (size-i)));
 		} else {
 			for (int i = 0; i < num; i++)
-				tester.remove(0);
+				tester.remove(tester.size()-1);
 		}
 
 	}
