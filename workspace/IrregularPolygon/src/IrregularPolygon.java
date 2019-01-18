@@ -21,7 +21,7 @@ public class IrregularPolygon extends Shape {
 		//draw a line from each point
 		for (int i = 0; i < myPolygon.size(); i++) {
 			if (i == myPolygon.size()-1) {
-				marker.line((float)myPolygon.get(i).getX(), (float)myPolygon.get(i).getY(), (float)myPolygon.get(0).getX(), (float)myPolygon.get(0).getY());
+				marker.line((float)myPolygon.get(i).getX(), (float)myPolygon.get(i).getY(), (float)myPolygon.get(0).getX(), (float)myPolygon.get(0).getY()); // last point to first point
 			} else {
 				marker.line((float)myPolygon.get(i).getX(), (float)myPolygon.get(i).getY(), (float)myPolygon.get(i+1).getX(), (float)myPolygon.get(i+1).getY());
 			}
@@ -29,11 +29,36 @@ public class IrregularPolygon extends Shape {
 	}
 	
 	public double calcPerimeter() {
-		return 0D;
+		double distance = 0;
+		for (int i = 0; i < myPolygon.size(); i++) {
+			if (i == myPolygon.size()-1) {
+				distance += Math.sqrt(Math.pow((myPolygon.get(i).getX()-myPolygon.get(0).getX()), 2) + Math.pow((myPolygon.get(i).getY()-myPolygon.get(0).getY()), 2));
+			} else {
+				distance += Math.sqrt(Math.pow((myPolygon.get(i).getX()-myPolygon.get(i+1).getX()), 2) + Math.pow((myPolygon.get(i).getY()-myPolygon.get(i+1).getY()), 2));
+			}
+		}
+		
+		return distance;
 	}
 	
 	public double calcArea() {
-		return 0D;
+		double n1 = 0;
+		double n2 = 0;
+		for (int i = 0;  i < myPolygon.size(); i++) {
+			if (i == myPolygon.size()-1) {
+				n1 += myPolygon.get(i).getX() * myPolygon.get(0).getY();
+			} else {
+				n1 += myPolygon.get(i).getX() * myPolygon.get(i+1).getY();
+			}
+		}
+		for (int i = 0;  i < myPolygon.size(); i++) {
+			if (i == myPolygon.size()-1) {
+				n2 += myPolygon.get(i).getY() * myPolygon.get(0).getX();
+			} else {
+				n2 += myPolygon.get(i).getY() * myPolygon.get(i+1).getX();
+			}
+		}
+		return Math.abs(0.5 * (n1-n2));
 	}
 
 	@Override
@@ -43,15 +68,19 @@ public class IrregularPolygon extends Shape {
 	}
 
 	@Override
-	public void move(double arg0, double arg1) {
+	public void move(double x, double y) {
 		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < myPolygon.size(); i++) {
+			myPolygon.get(i).setLocation(x, y);
+		}
 	}
 
 	@Override
-	public void translate(double arg0, double arg1) {
+	public void translate(double x, double y) {
 		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < myPolygon.size(); i++) {
+			myPolygon.get(i).setLocation(myPolygon.get(i).getX()+x, myPolygon.get(i).getY()+y);
+		}
 	}
 	
 }
