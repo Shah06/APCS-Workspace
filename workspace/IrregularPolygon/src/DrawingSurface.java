@@ -35,6 +35,9 @@ public class DrawingSurface extends PApplet{
 		text("Vertices: " + tester.getNumVertices(), width/2, 45);
 	}
 	
+
+	// mouse and key interactions
+
 	public void mousePressed() {
 		tester.add(new Point2D.Double(mouseX, mouseY));
 	}
