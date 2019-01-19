@@ -58,13 +58,34 @@ public class IrregularPolygon extends Shape {
 				n2 += myPolygon.get(i).getY() * myPolygon.get(i+1).getX();
 			}
 		}
-		return Math.abs(0.5 * (n1-n2));
+		return Math.abs(0.5D * (n1-n2));
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		double xMax = 0;
+		double xMin = 0;
+		double yMax = 0;
+		double yMin = 0;
+		
+		for (int i = 0; i < myPolygon.size(); i++) {
+			if (i == 0) {
+				xMax = myPolygon.get(0).getX();
+				xMin = myPolygon.get(0).getX();
+				yMax = myPolygon.get(0).getY();
+				yMin = myPolygon.get(0).getY();
+			}
+			double tempX = myPolygon.get(i).getX();
+			double tempY = myPolygon.get(i).getY();
+			
+			if (tempX > xMax) xMax = tempX;
+			if (tempX < xMin) xMin = tempX;
+			if (tempY > yMax) yMax = tempY;
+			if (tempY < yMin) yMin = tempY;
+		}
+		
+		
+		return new Rectangle(xMin, yMin, (xMax-xMin), (yMax-yMin)); // returns bounding rectangle
 	}
 
 	@Override
