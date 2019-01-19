@@ -36,8 +36,6 @@ public class DrawingSurface extends PApplet{
 	}
 	
 
-	// mouse and key interactions
-
 	public void mousePressed() {
 		tester.add(new Point2D.Double(mouseX, mouseY));
 	}
