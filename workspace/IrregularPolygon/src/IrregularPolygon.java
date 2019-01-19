@@ -18,7 +18,7 @@ public class IrregularPolygon extends Shape {
 	}
 	
 	public void draw(PApplet marker) {
-		//draw a line from each point
+		// draw a line from each point
 		for (int i = 0; i < myPolygon.size(); i++) {
 			if (i == myPolygon.size()-1) {
 				marker.line((float)myPolygon.get(i).getX(), (float)myPolygon.get(i).getY(), (float)myPolygon.get(0).getX(), (float)myPolygon.get(0).getY()); // last point to first point
@@ -102,6 +102,22 @@ public class IrregularPolygon extends Shape {
 		for (int i = 0; i < myPolygon.size(); i++) {
 			myPolygon.get(i).setLocation(myPolygon.get(i).getX()+x, myPolygon.get(i).getY()+y);
 		}
+	}
+	
+	// deletes most recent vertex
+	public void pop() {
+		if (myPolygon.size() == 0) return;
+		myPolygon.remove(myPolygon.size()-1);
+	}
+	
+	// deletes oldest vertex
+	public void push() {
+		if (myPolygon.size() == 0) return;
+		myPolygon.remove(0);
+	}
+
+	public int getNumVertices() {
+		return myPolygon.size();
 	}
 	
 }

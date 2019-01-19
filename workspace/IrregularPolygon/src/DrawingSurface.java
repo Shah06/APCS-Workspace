@@ -22,7 +22,7 @@ public class DrawingSurface extends PApplet{
 //		tester.add(new Point2D.Double(0, 3));
 //		tester.add(new Point2D.Double(4, 0));
 //		tester.add(new Point2D.Double(4, 3));
-		textSize(20);
+		textSize(12);
 		textAlign(CENTER);
 	}
 	
@@ -30,12 +30,22 @@ public class DrawingSurface extends PApplet{
 		background(255);
 		tester.getBounds().draw(this);
 		tester.draw(this);
-		text("Perimeter: " + tester.calcPerimeter(), width/2, 30);
-		text("Area: " + tester.calcArea(), width/2, 50);
+		text("Perimeter: " + tester.calcPerimeter(), width/2, 15);
+		text("Area: " + tester.calcArea(), width/2, 30);
+		text("Vertices: " + tester.getNumVertices(), width/2, 45);
 	}
 	
 	public void mousePressed() {
 		tester.add(new Point2D.Double(mouseX, mouseY));
+	}
+	
+	public void keyPressed() {
+		if (keyCode == DELETE) {
+			tester.push();
+		}
+		if (keyCode == BACKSPACE) {
+			tester.pop();
+		}
 	}
 	
 }
