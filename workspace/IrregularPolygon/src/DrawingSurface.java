@@ -34,7 +34,8 @@ public class DrawingSurface extends PApplet{
 		text("Area: " + tester.calcArea(), width/2, 30);
 		text("Vertices: " + tester.getNumVertices(), width/2, 45);
 	}
-	
+
+	// mouse interactions
 
 	public void mousePressed() {
 		tester.add(new Point2D.Double(mouseX, mouseY));
