@@ -7,9 +7,9 @@
 <fullyQualifiedTypeName name="ashah766.testers.Shapes"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-<fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="objectexplorer.MemoryMeasurer"/>
 <fullyQualifiedTypeName name="objectexplorer.ObjectGraphMeasurer"/>
 <fullyQualifiedTypeName name="objectexplorer.ObjectGraphMeasurer.Footprint"/>
 <fullyQualifiedTypeName name="java.awt.geom.Point2D.Double"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
 </qualifiedTypeNameHistroy>
