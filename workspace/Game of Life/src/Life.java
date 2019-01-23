@@ -33,50 +33,43 @@ public class Life {
 
 	// Runs a single turn of the Game Of Life
 	public void step() {
-		boolean[][] nextGrid = Arrays.copyOf(grid, grid.length); // test if not broken by 2d array?
-		
+		boolean[][] nextGrid = new boolean[20][20]; // test if not broken by 2d array?
+//		boolean[][] nextGrid = Arrays.copyOf(grid, grid.length); // <-- WHY IS THAT BROKEN????
 		// iterates through grid
-		for (int row = 0; row < grid.length; row++) {
-			
+		
+		for (int row = 0; row < grid.length; row++) {			
 			for (int col = 0; col < grid[row].length; col++) {
-				
-				// look at surroundings
 				int neighbors = 0;
-				if (row != 0) {
-					if (col != 0) {
-						if (grid[row-1][col-1]) neighbors++;
+				
+				// check top row
+				if (row > 0) {
+					if (col > 0) {
+						if (grid[row-1][col-1]) neighbors++; // top left
 					}
-					if (grid[row-1][col]) neighbors++;
-					if (col != grid[row].length-1) {
-						if (grid[row-1][col+1]) neighbors++;
+					if (grid[row-1][col]) neighbors++; // directly above
+					if (col < grid[row].length-1) {
+						if (grid[row-1][col+1]) neighbors++; // top right
 					}
 				}
 				
-				
-				if (col != 0) {
+				// check directly left and directly right
+				if (col > 0) {
 					if (grid[row][col-1]) neighbors++;
 				}
-				if (col != grid[row].length-1) {
+				if (col < grid[row].length-1) {
 					if (grid[row][col+1]) neighbors++;
 				}
 				
-				if (row != grid.length-1) {
+				// check bottom row
+				if (row < grid.length-1) {
 					if (col > 0) {
-						if (grid[row+1][col-1]) neighbors++;
+						if (grid[row+1][col-1]) neighbors++; // bottom left
 					}
-					if (grid[row+1][col]) neighbors++;
+					if (grid[row+1][col]) neighbors++; // directly below
 					if (col < grid[row].length-1) {
-						if (grid[row+1][col+1]) neighbors++;
+						if (grid[row+1][col+1]) neighbors++; // bottom right
 					}
 				}
-				
-//				if (neighbors < 2 || neighbors > 3) {
-//					nextGrid[row][col] = false;
-//				} else if (neighbors == 3) {
-//					nextGrid[row][col] = true;
-//				} else {
-//					nextGrid[row][col] = grid[row][col];
-//				}
 				
 				if (neighbors == 3) {
 					nextGrid[row][col] = true;
@@ -86,8 +79,8 @@ public class Life {
 					nextGrid[row][col] = false;
 				}
 				
+				
 			}
-			
 		}
 		
 		grid = nextGrid;
@@ -174,6 +167,7 @@ public class Life {
 		/*
 		 * Dimensions for each box: width/20, height/20;
 		 */
+		marker.rect(10, 10, 100, 100);
 		float startX = x;
 		float startY = y;
 		float boxWidth = width/20;
@@ -182,10 +176,7 @@ public class Life {
 		for (int i = 0; i < grid.length; i ++) {
 			for (int k = 0; k < grid[i].length; k++) {
 				if (grid[i][k]) {
-					System.out.println("true");
-					marker.fill(0);
 					marker.rect(startX, startY, boxWidth, boxHeight);
-					marker.fill(255);
 				}
 				startX += boxWidth;
 				startY += boxHeight;

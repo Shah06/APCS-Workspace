@@ -24,7 +24,6 @@ public class DrawingSurface extends PApplet {
 	public void draw() {
 		background(255);
 		board.draw(this, 0, 0, 500, 500);
-		
 	}
 
 
