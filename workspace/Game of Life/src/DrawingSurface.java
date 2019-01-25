@@ -5,14 +5,14 @@ import processing.core.PApplet;
 public class DrawingSurface extends PApplet {
 	
 	public void settings() {
-		size(500, 500);
+		size(500, 600);
 	}
 	
 	private Life board;
 	
 	public void setup() {
 //		board = new Life("data\\life100.txt");
-//		board = new Life("data\\life tester.txt");
+		board = new Life("data\\life tester.txt");
 		board = new Life();
 //		board.step(5);
 		fill(0);
@@ -31,9 +31,16 @@ public class DrawingSurface extends PApplet {
 
 
 	public void mousePressed() {
-		Point p = (board.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, 500f, 500f));
-		board.toggleCell((int) p.getX(), (int) p.getY());
+		if ((board.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, 500f, 500f) != null)) {
+			Point p = (board.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, 500f, 500f));
+			board.toggleCell((int) p.getX(), (int) p.getY());
+		}
 	}
+	
+//	public void mouseDragged() {
+//		Point p = (board.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, 500f, 500f));
+//		board.toggleCell((int) p.getX(), (int) p.getY()); 
+//	}
 	
 	public void keyPressed() {
 		if (key == 's') {

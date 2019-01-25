@@ -167,21 +167,37 @@ public class Life {
 		/*
 		 * Dimensions for each box: width/20, height/20;
 		 */
-		float startX = x;
-		float startY = y;
-		float boxWidth = width/20;
-		float boxHeight = height/20;
+//		float startX = x;
+//		float startY = y;
+//		float boxWidth = width/20;
+//		float boxHeight = height/20;
+//		
+//		for (int i = 0; i < grid.length; i++) {
+//			for (int k = 0; k < grid[i].length; k++) {
+//				if (grid[i][k]) {
+//					marker.rect(startX, startY, boxWidth, boxHeight);
+//				}
+//				startX += 25;
+//			}
+//			startY += 25;
+//			startX = x;
+//		}
+		
+		float cellWidth = width / grid[0].length; // x-axis length
+		float cellHeight = height / grid.length; // y-axis length
 		
 		for (int i = 0; i < grid.length; i++) {
-			for (int k = 0; k < grid[i].length; k++) {
-				if (grid[i][k]) {
-					marker.rect(startX, startY, boxWidth, boxHeight);
+			for (int j = 0; j < grid[0].length; j++) {
+				if (grid[i][j]) {
+					marker.fill(0);
+				} else {
+					marker.fill(255);
 				}
-				startX += 25;
+				marker.rect(j*cellWidth, i*cellHeight, cellWidth, cellHeight);
 			}
-			startY += 25;
-			startX = x;
 		}
+		
+		
 	}
 	
 	/**
@@ -196,8 +212,8 @@ public class Life {
 	 * @return A Point object representing a coordinate within the game of life grid.
 	 */
 	public Point clickToIndex(Point p, float x, float y, float width, float height) {
-		int tempX = 0;
-		int tempY = 0;
+		int tempX = -1; // code that indicates not in the grid
+		int tempY = -1; // code that indicates not in the grid
 		for (int i = 0; i < width; i+=(width/20) ) {
 			if (p.getX() >= (float)(i)+x && p.getX() < (float)(i)+(x+width/20)) {
 				tempX = (int) (p.getX()/(width/20));
@@ -206,13 +222,16 @@ public class Life {
 		}
 		
 		for (int j = 0; j < height; j+=(height/20) ) {
-			if (p.getY() >= (float)(j)+x && p.getY() < (float)(j)+(y+width/20)) {
+			if (p.getY() >= (float)(j)+y && p.getY() < (float)(j)+(y+width/20)) {
 				tempY= (int) (p.getY()/(height/20));
 				break;
 			}
 		}
 		
-		return new Point(tempX, tempY);
+		if (tempX != -1 && tempY != -1) {
+			return new Point(tempX, tempY);
+		} return null;
+		
 	}
 	
 	/**
