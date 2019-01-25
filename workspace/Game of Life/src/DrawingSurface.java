@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
@@ -9,11 +11,10 @@ public class DrawingSurface extends PApplet {
 	private Life board;
 	
 	public void setup() {
-		board = new Life("data\\life tester.txt");
+		board = new Life("data\\life100.txt");
 //		board.step(5);
 		fill(0);
-//		surface.setResizable(false);
-		surface.setResizable(true);
+		surface.setResizable(false);
 		surface.setFrameRate(60);
 		
 		
@@ -28,11 +29,14 @@ public class DrawingSurface extends PApplet {
 
 
 	public void mousePressed() {
-		
+		Point p = (board.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, 500f, 500f));
+		board.toggleCell((int) p.getX(), (int) p.getY());
 	}
 	
 	public void keyPressed() {
-		
+		if (key == 's') {
+			board.step();
+		}
 	}
 	
 }

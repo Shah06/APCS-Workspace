@@ -2,8 +2,9 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import processing.core.PApplet;
 
@@ -19,9 +20,14 @@ import processing.core.PApplet;
 public class Life {
 	
 	private boolean[][] grid;
+	
+//	private ArrayList<Boolean[][]> snapshots = new ArrayList<>();
+	private boolean[][][] snapshot;
+	private int snapshotCounter = 0;
 
 	// Constructs an empty grid
 	public Life() {
+		snapshot = new boolean[20][20][20]; // counts last 20 moves????
 		grid = new boolean[20][20];
 	}
 
@@ -85,6 +91,7 @@ public class Life {
 		
 		grid = nextGrid;
 	}
+	
 
 	// Runs n turns of the Game Of Life
 	public void step(int n) {
@@ -167,20 +174,20 @@ public class Life {
 		/*
 		 * Dimensions for each box: width/20, height/20;
 		 */
-		marker.rect(10, 10, 100, 100);
 		float startX = x;
 		float startY = y;
 		float boxWidth = width/20;
 		float boxHeight = height/20;
 		
-		for (int i = 0; i < grid.length; i ++) {
+		for (int i = 0; i < grid.length; i++) {
 			for (int k = 0; k < grid[i].length; k++) {
 				if (grid[i][k]) {
 					marker.rect(startX, startY, boxWidth, boxHeight);
 				}
-				startX += boxWidth;
-				startY += boxHeight;
+				startX += 25;
 			}
+			startY += 25;
+			startX = x;
 		}
 	}
 	
@@ -196,7 +203,23 @@ public class Life {
 	 * @return A Point object representing a coordinate within the game of life grid.
 	 */
 	public Point clickToIndex(Point p, float x, float y, float width, float height) {
-		return null;
+		int tempX = 0;
+		int tempY = 0;
+		for (int i = 0; i < width; i+=(width/20) ) {
+			if (p.getX() >= (float)(i)+x && p.getX() < (float)(i)+(x+width/20)) {
+				tempX = (int) (p.getX()/(width/20));
+				break;
+			}
+		}
+		
+		for (int j = 0; j < height; j+=(height/20) ) {
+			if (p.getY() >= (float)(j)+x && p.getY() < (float)(j)+(y+width/20)) {
+				tempY= (int) (p.getY()/(height/20));
+				break;
+			}
+		}
+		
+		return new Point(tempX, tempY);
 	}
 	
 	/**
@@ -207,6 +230,11 @@ public class Life {
 	 * @param j The y coordinate of the cell in the grid.
 	 */
 	public void toggleCell(int i, int j) {
+		if (grid[j][i]) {
+			grid[j][i] = false;
+		} else {
+			grid[j][i] = true;
+		}
 	}
 
 	
