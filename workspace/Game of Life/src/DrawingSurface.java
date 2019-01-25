@@ -11,7 +11,9 @@ public class DrawingSurface extends PApplet {
 	private Life board;
 	
 	public void setup() {
-		board = new Life("data\\life100.txt");
+//		board = new Life("data\\life100.txt");
+//		board = new Life("data\\life tester.txt");
+		board = new Life();
 //		board.step(5);
 		fill(0);
 		surface.setResizable(false);

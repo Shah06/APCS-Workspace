@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import processing.core.PApplet;
 
@@ -20,14 +18,9 @@ import processing.core.PApplet;
 public class Life {
 	
 	private boolean[][] grid;
-	
-//	private ArrayList<Boolean[][]> snapshots = new ArrayList<>();
-	private boolean[][][] snapshot;
-	private int snapshotCounter = 0;
 
 	// Constructs an empty grid
 	public Life() {
-		snapshot = new boolean[20][20][20]; // counts last 20 moves????
 		grid = new boolean[20][20];
 	}
 
@@ -107,7 +100,7 @@ public class Life {
 		for (int row = 0; row < grid.length; row++) {
 			
 			
-			s = s + row + ": ";
+//			s = s + row + ": ";
 			for (int col = 0; col < grid[row].length; col++) {
 				
 				if (grid[row][col] == true) {
