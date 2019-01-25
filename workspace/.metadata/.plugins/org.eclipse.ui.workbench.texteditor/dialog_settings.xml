@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="nextGrid" key="selection"/>
+		<item value="&quot;pressed&quot;" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="&quot;pressed&quot;"/>
 			<item value="nextGrid"/>
 			<item value="getBounds"/>
 			<item value="draw("/>
@@ -22,7 +23,6 @@
 			<item value="DancingBug"/>
 			<item value="BoxBug"/>
 			<item value="translate"/>
-			<item value="move"/>
 		</list>
 		<list key="replacehistory">
 			<item value="add("/>

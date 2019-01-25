@@ -248,6 +248,10 @@ public class Life {
 			grid[j][i] = true;
 		}
 	}
+	
+	public void clear() {
+		grid = new boolean[20][20];
+	}
 
 	
 	
