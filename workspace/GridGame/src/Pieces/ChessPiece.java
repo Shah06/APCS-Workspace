@@ -25,12 +25,29 @@ public abstract class ChessPiece {
 	 * 
 	 * @param row row to move to
 	 * @param col column to move to
+	 * @param board current state of the board
 	 * @return true if legal to move, false if illegal move
 	 */
-	protected abstract boolean move(int row, int col);
+	public abstract boolean move(int row, int col, ChessPiece[][] board);
 	
-	protected Point getPos() {
+	/**
+	 * 
+	 * @param board current state of the board
+	 * @return array of Point objects representing possible moves
+	 */
+	protected abstract Point[] getPossibleMoves(ChessPiece[][] board);
+	
+	public Point getPos() {
 		return new Point(row, col);
+	}
+	
+	
+	/**
+	 * 
+	 * @return true if white, false if black
+	 */
+	public boolean getColor() {
+		return color;
 	}
 	
 }

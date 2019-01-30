@@ -19,6 +19,8 @@ import processing.core.PApplet;
 public class ChessBoard {
 	
 	private ChessPiece[][] grid;
+	
+	private boolean currentTurn = false;
 
 	// Constructs an empty grid
 	public ChessBoard() {
@@ -29,28 +31,53 @@ public class ChessBoard {
 	}
 	
 	public int isOccupied(int row, int col) { // return 0 if not occupied, 1 if friendly fire, 2 if capture
-		
-		// TODO method
-		return 0;
-	}
-
-//	// Constructs the grid defined in the file specified
-//	public ChessBoard(String filename) {
-//		this();
-//		readData(filename, grid);
-//	}
-
-	// Runs a single turn of the Game Of Life
-	public void step() {
-		
+		if (null == grid[row][col]) {
+			return 0; // illegal move
+		} else if (grid[row][col].getColor() == currentTurn) {
+			return 1; // friendly
+		} else {
+			return 2; // all clear
+		}
 	}
 	
-
-	// Runs n turns of the Game Of Life
-	public void step(int n) {
-		for (int i = 0; i < n; i++) {
-			step();
+	
+	/**
+	 * Switches the turn
+	 */
+	public void switchTurn() {
+		if (currentTurn) {
+			currentTurn = false;
+		} else {
+			currentTurn = true;
 		}
+	}
+
+	/**
+	 * 
+	 * @param piece Point object from clickToIndex
+	 * @param x grid row to move to
+	 * @param y grid col to move to
+	 * @return true if move completed, false if move not completed
+	 */
+	public boolean move(Point piece, int x, int y) {
+		
+		
+		// make sure that piece isn't moving into a friendly area
+		if (1 == isOccupied(x, y)) {
+			return false;
+		}
+		
+		
+		// check to see if the chess piece can legally make move
+		if (grid[x][y].move(x, y, grid)) { 
+			grid[x][y] = grid[(int)piece.getX()][(int)piece.getY()]; // places object in new position
+			grid[x][y] = null;
+			return true;
+		}
+		
+		return false;
+		
+		
 	}
 	
 	// Formats this Life grid as a String to be printed (one call to this method returns the whole multi-line grid)
@@ -195,18 +222,17 @@ public class ChessBoard {
 	}
 	
 	/**
-	 * Optionally, complete this method to toggle a cell in the game of life grid
-	 * between alive and dead.
+	 * Marks the cell
 	 * 
-	 * @param i The x coordinate of the cell in the grid.
-	 * @param j The y coordinate of the cell in the grid.
+	 * @param i The row of the cell in the grid.
+	 * @param j The row of the cell in the grid.
 	 */
-	public void toggleCell(int i, int j) {
-		
+	public void markCells(int i, int j) {
+//		grid[i][j].getPossibleMoves(grid);
 	}
 	
 	public void clear() {
-		grid = new char[8][8];
+		grid = new ChessPiece[8][8];
 	}
 
 	

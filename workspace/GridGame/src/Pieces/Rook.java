@@ -1,5 +1,7 @@
 package Pieces;
 
+import java.awt.Point;
+
 public class Rook extends ChessPiece {
 
 	public Rook(int row, int col, boolean color) {
@@ -8,9 +10,15 @@ public class Rook extends ChessPiece {
 	}
 
 	@Override
-	protected boolean move(int row, int col) {
+	public boolean move(int row, int col, ChessPiece[][] board) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected Point[] getPossibleMoves(ChessPiece[][] board) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

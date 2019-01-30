@@ -2,15 +2,16 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="[8][8]" key="selection"/>
+		<item value="[4][4]" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
 			<item value="[20][20]"/>
-			<item value="short["/>
 			<item value="boolean["/>
+			<item value="int[][]"/>
+			<item value="short["/>
 			<item value="&quot;pressed&quot;"/>
 			<item value="nextGrid"/>
 			<item value="getBounds"/>
@@ -22,9 +23,11 @@
 			<item value="insert"/>
 			<item value="toString"/>
 			<item value="toArray"/>
-			<item value="Object[]"/>
 		</list>
 		<list key="replacehistory">
+			<item value="[4][4]"/>
+			<item value="int["/>
+			<item value="ChessPiece[][]"/>
 			<item value="[8][8]"/>
 			<item value="char["/>
 			<item value="short["/>
@@ -39,7 +42,7 @@
 		<item value="298" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-27|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="407" key="DIALOG_HEIGHT"/>
-		<item value="573" key="DIALOG_X_ORIGIN"/>
-		<item value="570" key="DIALOG_Y_ORIGIN"/>
+		<item value="745" key="DIALOG_X_ORIGIN"/>
+		<item value="548" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
