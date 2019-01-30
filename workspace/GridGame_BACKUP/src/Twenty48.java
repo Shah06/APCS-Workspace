@@ -20,16 +20,65 @@ public class Twenty48 {
 	
 	// grid with numerical representation of values of 2048
 	private int[][] grid;
-
+	private boolean lost = false;
+	private int score = 0; // total value of all items on the board
 	
 	// Constructs an empty grid
 	public Twenty48() {
 		grid = new int[4][4];
 	}
 	
+	public int getScore() {
+		score = 0;
+		for (int i = 0; i < grid.length; i++) {
+			for (int k = 0; k < grid[i].length; k++) {
+				score += grid[i][k];
+			}
+		}
+		return score;
+	}
+	
 	public boolean isOccupied(int x, int y) {
 		if (0 == grid[x][y]) return false;
 		return true;
+	}
+	
+	/** 
+	 * fills with random 2, or 4
+	 */
+	public void generateCell() {
+		int emptyCells = 0;
+		for (int i = 0; i < grid.length; i++) {
+			for (int k = 0; k < grid[i].length; k++) {
+				if (!isOccupied(i, k)) {
+					emptyCells++;
+				}
+			}
+		}
+		
+		if (emptyCells == 0 && !up() && !down() && !left() && !right()) {
+			lost = true;
+		}
+		
+		int rand = (int) Math.random() * emptyCells;
+		
+		int randCount = rand;
+		
+		for (int i = 0; i < grid.length; i++) {
+			for (int k = 0; k < grid[i].length; k++) {
+				if (!isOccupied(i, k) && randCount == 0) {
+					randCount--;
+					double num = Math.random();
+					if (num <= 0.3) {
+						grid[i][k] = 4;
+						break;
+					} else {
+						grid[i][k] = 2;
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	
@@ -44,33 +93,88 @@ public class Twenty48 {
 		if (isOccupied(x, y) && grid[(int) cell.getX()][(int) cell.getY()] != grid[x][y]) return false;
 		
 		if (grid[(int) cell.getX()][(int) cell.getY()] == grid[x][y]) {
-			grid[x][y] = grid[(int) cell.getX()][(int) cell.getY()]; // double cell
+			System.out.println((int)cell.getX() + "" + (int)cell.getY());
+			grid[x][y] *= 2; // double cell
+			grid[(int) cell.getX()][(int) cell.getY()] = 0;
 			return true;
 		}
 		
 		grid[x][y] = grid[(int) cell.getX()][(int) cell.getY()];
+		grid[(int) cell.getX()][(int) cell.getY()] = 0;
 		return true;
 		
 	}
 	
 	// shifts cells up, if possible
-	public void up() {
+	public boolean up() {
+		boolean moved = false;
+		for (int i = 1; i < grid.length; i++) {
+			for (int k = 0; k < grid[i].length; k++) {
+				Point p = new Point(i, k);
+				if (move(p, i-1, k)) {
+					moved = true;
+				}
+				move(p, i-1, k);
+			}
+		}
 		
+		if (moved) {
+			return true;
+		} return false;
 	}
 	
 	// shifts cells down, if possible
-	public void down() {
+	public boolean down() {
+		boolean moved = false;
+		for (int i = 2; i >= 0; i--) {
+			for (int k = 0; k < grid[i].length; k++) {
+				Point p = new Point(i, k);
+				if (move(p, i+1, k)) {
+					moved = true;
+				}
+				move(p, i+1, k);
+			}
+		}
 		
+		if (moved) {
+			return true;
+		} return false;
 	}
 	
 	// shifts cells right, if possible
-	public void right() {
+	public boolean right() {
+		boolean moved = false;
+		for (int i = 0; i < grid.length; i++) {
+			for (int k = 2; k >= 0; k--) {
+				Point p = new Point(i, k);
+				if (move(p, i, k+1)) {
+					moved = true;
+				}
+				move(p, i, k+1);
+			}
+		}
 		
+		if (moved) {
+			return true;
+		} return false;
 	}
 	
 	// shifts cells left, if possible
-	public void left() {
+	public boolean left() {
+		boolean moved = false;
+		for (int i = 0; i < grid.length; i++) {
+			for (int k = 1; k < grid[i].length; k++) {
+				Point p = new Point(i, k);
+				if (move(p, i, k-1)) {
+					moved = true;
+				}
+				move(p, i, k-1);
+			}
+		}
 		
+		if (moved) {
+			return true;
+		} return false;
 	}
 	
 	/**
@@ -78,13 +182,18 @@ public class Twenty48 {
 	 */
 	public void generate() {
 		
-		// for now, fills grid with 2s
-		for (int i = 0; i < grid.length; i++) {
-			for (int k = 0; k < grid[i].length; k++) {
-				System.out.println("" + i + "" + k);
-				grid[i][k] = 2;
-			}
+//		// for now, fills grid with 2s
+//		for (int i = 0; i < grid.length; i++) {
+//			for (int k = 0; k < grid[i].length; k++) {
+//				System.out.println("" + i + "" + k);
+//				grid[i][k] = 2;
+//			}
+//		}
+		
+		for (int i = 0; i < 5; i++) {
+			generateCell();
 		}
+		
 	}
 	
 	
@@ -118,10 +227,37 @@ public class Twenty48 {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				
-				marker.text(grid[i][j], j*cellWidth + 20, i*cellHeight + 20);
+				
+				// choose background rectangle color
+				switch (grid[i][j]) {
+					case 2: marker.fill(254, 255, 229); break;
+					case 4: marker.fill(255, 238, 188); break;
+					case 8: marker.fill(255, 220, 117); break;
+					case 16: marker.fill(252, 184, 83); break;
+					case 32: marker.fill(252, 150, 103); break;
+					case 64: marker.fill(255, 112, 99); break;
+					case 128: marker.fill(255, 239, 98); break;
+					case 256: marker.fill(201, 158, 255); break;
+					default: marker.fill(255, 255, 255); break;
+				}
+				
+				marker.rect(j*cellWidth, i*cellHeight, cellWidth, cellHeight);
+				
+				marker.fill(0);
+				marker.textSize(24);
+				marker.color(0);
+				if (grid[i][j] != 0) {
+					marker.text(grid[i][j], j*cellWidth + cellWidth/2, i*cellHeight + cellHeight/2);
+				}
 				
 				
 			}
+		}
+		
+		if (lost) {
+			marker.textSize(72);
+			marker.fill(0);
+			marker.text("GAME OVER", 250, 300);
 		}
 		
 		
