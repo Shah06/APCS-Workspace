@@ -38,38 +38,21 @@ public class DrawingSurface extends PApplet {
 	
 	public void keyPressed() {
 		
-		boolean hasSpace = true;
-		
 		if (keyCode == UP) {
-			hasSpace = board.up();
 			board.up();
-			if (hasSpace) {
-				board.generateCell();
-			}
+			board.generateCell();
 		}
 		if (keyCode == RIGHT) {
-			hasSpace = board.right();
 			board.right();
 			board.generateCell();
-			if (hasSpace) {
-				board.generateCell();
-			}
 		}
 		if (keyCode == DOWN) {
-			hasSpace = board.down();
 			board.down();
 			board.generateCell();
-			if (hasSpace) {
-				board.generateCell();
-			}
 		}
 		if (keyCode == LEFT) {
-			hasSpace = board.left();
 			board.left();
 			board.generateCell();
-			if (hasSpace) {
-				board.generateCell();
-			}
 		}
 		
 	}

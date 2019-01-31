@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="marker.fill" key="selection"/>
+		<item value="System.out.print" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="System.out.print"/>
 			<item value="marker.color"/>
 			<item value="[20][20]"/>
 			<item value="boolean["/>
@@ -22,7 +23,6 @@
 			<item value="add"/>
 			<item value="spaces"/>
 			<item value="insert"/>
-			<item value="toString"/>
 		</list>
 		<list key="replacehistory">
 			<item value="marker.fill"/>

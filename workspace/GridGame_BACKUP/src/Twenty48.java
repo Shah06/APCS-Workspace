@@ -93,7 +93,6 @@ public class Twenty48 {
 		if (isOccupied(x, y) && grid[(int) cell.getX()][(int) cell.getY()] != grid[x][y]) return false;
 		
 		if (grid[(int) cell.getX()][(int) cell.getY()] == grid[x][y]) {
-			System.out.println((int)cell.getX() + "" + (int)cell.getY());
 			grid[x][y] *= 2; // double cell
 			grid[(int) cell.getX()][(int) cell.getY()] = 0;
 			return true;
@@ -181,14 +180,6 @@ public class Twenty48 {
 	 * generates a random 2048 grid
 	 */
 	public void generate() {
-		
-//		// for now, fills grid with 2s
-//		for (int i = 0; i < grid.length; i++) {
-//			for (int k = 0; k < grid[i].length; k++) {
-//				System.out.println("" + i + "" + k);
-//				grid[i][k] = 2;
-//			}
-//		}
 		
 		for (int i = 0; i < 5; i++) {
 			generateCell();
