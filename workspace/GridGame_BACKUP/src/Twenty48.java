@@ -220,23 +220,46 @@ public class Twenty48 {
 				
 				
 				// choose background rectangle color
-				switch (grid[i][j]) {
-					case 2: marker.fill(254, 255, 229); break;
-					case 4: marker.fill(255, 238, 188); break;
-					case 8: marker.fill(255, 220, 117); break;
-					case 16: marker.fill(252, 184, 83); break;
-					case 32: marker.fill(252, 150, 103); break;
-					case 64: marker.fill(255, 112, 99); break;
-					case 128: marker.fill(255, 239, 98); break;
-					case 256: marker.fill(201, 158, 255); break;
-					default: marker.fill(255, 255, 255); break;
+				
+				// light mode
+				if (((DrawingSurface) marker).getBgColor() == 255) {
+					switch (grid[i][j]) {
+						case 2: marker.fill(254, 255, 229); break;
+						case 4: marker.fill(255, 238, 188); break;
+						case 8: marker.fill(255, 220, 117); break;
+						case 16: marker.fill(252, 184, 83); break;
+						case 32: marker.fill(252, 150, 103); break;
+						case 64: marker.fill(255, 112, 99); break;
+						case 128: marker.fill(255, 239, 98); break;
+						case 256: marker.fill(201, 158, 255); break;
+						default: marker.fill(((DrawingSurface) marker).getBgColor()); break;
+					}
+				}
+				// dark mode
+				else {
+					switch (grid[i][j]) {
+						case 2: marker.fill(254/2, 255/2, 229/2); break;
+						case 4: marker.fill(255/2, 238/2, 188/2); break;
+						case 8: marker.fill(255/2, 220/2, 117/2); break;
+						case 16: marker.fill(252/2, 184/2, 83/2); break;
+						case 32: marker.fill(252/2, 150/2, 103/2); break;
+						case 64: marker.fill(255/2, 112/2, 99/2); break;
+						case 128: marker.fill(255/2, 239/2, 98/2); break;
+						case 256: marker.fill(201/2, 158/2, 255/2); break;
+						default: marker.fill(((DrawingSurface) marker).getBgColor()); break;
+					}
 				}
 				
 				marker.rect(j*cellWidth, i*cellHeight, cellWidth, cellHeight);
 				
-				marker.fill(0);
+				if (((DrawingSurface) marker).getBgColor() == 255) {
+					marker.fill(0);
+				} else {
+					marker.fill(255);
+				}
+				
 				marker.textSize(24);
-				marker.color(0);
+				marker.color(255);
 				if (grid[i][j] != 0) {
 					marker.text(grid[i][j], j*cellWidth + cellWidth/2, i*cellHeight + cellHeight/2);
 				}
@@ -247,7 +270,11 @@ public class Twenty48 {
 		
 		if (lost) {
 			marker.textSize(72);
-			marker.fill(0);
+			if (((DrawingSurface) marker).getBgColor() == 255) {
+				marker.fill(0);
+			} else {
+				marker.fill(255);
+			}
 			marker.text("GAME OVER", 250, 300);
 		}
 		

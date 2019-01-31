@@ -20,18 +20,34 @@ public class DrawingSurface extends PApplet {
 		textAlign(CENTER);
 	}
 	
+	private int bgColor;
+	
 	public void draw() {
 		
-		background(255);
-		fill(0);
+		if (255 == bgColor) {
+			stroke(0);
+		} else {
+			stroke(255);
+		}
+		background(bgColor);
+		if (255 == bgColor) {
+			fill(0);
+		} else {
+			fill(255);
+		}
 		textAlign(CENTER);
 		board.draw(this, 100, 100, 500, 500);
 		
 		textSize(12);
-		fill(0);
+		if (255 == bgColor) {
+			fill(0);
+		} else {
+			fill(255);
+		}
 		textAlign(CENTER);
 		text("SCORE: " + board.getScore(), 250, 535);
 		text("ARROW KEYS TO MOVE", 250, 555);
+		text("CLICK TO TOGGLE DARK MODE", 250, 575);
 		
 	}
 		
@@ -55,6 +71,18 @@ public class DrawingSurface extends PApplet {
 			board.generateCell();
 		}
 		
+	}
+	
+	public void mousePressed() {
+		if (255 == bgColor) {
+			bgColor = 0;
+		} else {
+			bgColor = 255;
+		}
+	}
+	
+	public int getBgColor() {
+		return bgColor;
 	}
 	
 }
