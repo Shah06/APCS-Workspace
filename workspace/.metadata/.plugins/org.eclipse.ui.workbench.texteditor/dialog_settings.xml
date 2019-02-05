@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="GAME" key="selection"/>
+		<item value="lost = " key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="lost = "/>
 			<item value="GAME"/>
 			<item value="System.out.print"/>
 			<item value="marker.color"/>
@@ -22,7 +23,6 @@
 			<item value="insert("/>
 			<item value="ResizableArray&lt;"/>
 			<item value="add"/>
-			<item value="spaces"/>
 		</list>
 		<list key="replacehistory">
 			<item value="marker.fill"/>
