@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\ashah766\Desktop\APCS-workspace\workspace"/>
+	</list>
 	<section name="ExternalProjectImportWizard">
 		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
@@ -19,8 +22,8 @@
 	<section name="SaveAsDialogSettings">
 		<item value="525" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="579" key="DIALOG_HEIGHT"/>
+		<item value="592" key="DIALOG_HEIGHT"/>
 		<item value="617" key="DIALOG_X_ORIGIN"/>
-		<item value="118" key="DIALOG_Y_ORIGIN"/>
+		<item value="105" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

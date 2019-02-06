@@ -1,0 +1,171 @@
+FIBONACCI - DATA ANALYSIS
+1) What patterns do you see in timing data?
+
+2) What patterns do you see in number of iterations?
+
+3) TODO check SL
+
+
+F(0)
+Recursively, the method took 0 milliseconds and 1 iterations.
+Using a for-loop, the method took 0 milliseconds and 0 iterations.
+
+F(1)
+Recursively, the method took 0 milliseconds and 1 iterations.
+Using a for-loop, the method took 0 milliseconds and 0 iterations.
+
+F(2)
+Recursively, the method took 0 milliseconds and 3 iterations.
+Using a for-loop, the method took 0 milliseconds and 1 iterations.
+
+F(3)
+Recursively, the method took 0 milliseconds and 5 iterations.
+Using a for-loop, the method took 0 milliseconds and 2 iterations.
+
+F(4)
+Recursively, the method took 0 milliseconds and 9 iterations.
+Using a for-loop, the method took 0 milliseconds and 3 iterations.
+
+F(5)
+Recursively, the method took 0 milliseconds and 15 iterations.
+Using a for-loop, the method took 0 milliseconds and 4 iterations.
+
+F(6)
+Recursively, the method took 0 milliseconds and 25 iterations.
+Using a for-loop, the method took 0 milliseconds and 5 iterations.
+
+F(7)
+Recursively, the method took 0 milliseconds and 41 iterations.
+Using a for-loop, the method took 0 milliseconds and 6 iterations.
+
+F(8)
+Recursively, the method took 0 milliseconds and 67 iterations.
+Using a for-loop, the method took 0 milliseconds and 7 iterations.
+
+F(9)
+Recursively, the method took 0 milliseconds and 109 iterations.
+Using a for-loop, the method took 0 milliseconds and 8 iterations.
+
+F(10)
+Recursively, the method took 0 milliseconds and 177 iterations.
+Using a for-loop, the method took 0 milliseconds and 9 iterations.
+
+F(11)
+Recursively, the method took 0 milliseconds and 287 iterations.
+Using a for-loop, the method took 0 milliseconds and 10 iterations.
+
+F(12)
+Recursively, the method took 0 milliseconds and 465 iterations.
+Using a for-loop, the method took 0 milliseconds and 11 iterations.
+
+F(13)
+Recursively, the method took 0 milliseconds and 753 iterations.
+Using a for-loop, the method took 0 milliseconds and 12 iterations.
+
+F(14)
+Recursively, the method took 0 milliseconds and 1219 iterations.
+Using a for-loop, the method took 0 milliseconds and 13 iterations.
+
+F(15)
+Recursively, the method took 0 milliseconds and 1973 iterations.
+Using a for-loop, the method took 0 milliseconds and 14 iterations.
+
+F(16)
+Recursively, the method took 0 milliseconds and 3193 iterations.
+Using a for-loop, the method took 0 milliseconds and 15 iterations.
+
+F(17)
+Recursively, the method took 0 milliseconds and 5167 iterations.
+Using a for-loop, the method took 0 milliseconds and 16 iterations.
+
+F(18)
+Recursively, the method took 0 milliseconds and 8361 iterations.
+Using a for-loop, the method took 0 milliseconds and 17 iterations.
+
+F(19)
+Recursively, the method took 0 milliseconds and 13529 iterations.
+Using a for-loop, the method took 0 milliseconds and 18 iterations.
+
+F(20)
+Recursively, the method took 0 milliseconds and 21891 iterations.
+Using a for-loop, the method took 0 milliseconds and 19 iterations.
+
+F(21)
+Recursively, the method took 0 milliseconds and 35421 iterations.
+Using a for-loop, the method took 0 milliseconds and 20 iterations.
+
+F(22)
+Recursively, the method took 0 milliseconds and 57313 iterations.
+Using a for-loop, the method took 0 milliseconds and 21 iterations.
+
+F(23)
+Recursively, the method took 0 milliseconds and 92735 iterations.
+Using a for-loop, the method took 0 milliseconds and 22 iterations.
+
+F(24)
+Recursively, the method took 1 milliseconds and 150049 iterations.
+Using a for-loop, the method took 0 milliseconds and 23 iterations.
+
+F(25)
+Recursively, the method took 0 milliseconds and 242785 iterations.
+Using a for-loop, the method took 0 milliseconds and 24 iterations.
+
+F(26)
+Recursively, the method took 1 milliseconds and 392835 iterations.
+Using a for-loop, the method took 0 milliseconds and 25 iterations.
+
+F(27)
+Recursively, the method took 1 milliseconds and 635621 iterations.
+Using a for-loop, the method took 0 milliseconds and 26 iterations.
+
+F(28)
+Recursively, the method took 2 milliseconds and 1028457 iterations.
+Using a for-loop, the method took 0 milliseconds and 27 iterations.
+
+F(29)
+Recursively, the method took 3 milliseconds and 1664079 iterations.
+Using a for-loop, the method took 0 milliseconds and 28 iterations.
+
+F(30)
+Recursively, the method took 4 milliseconds and 2692537 iterations.
+Using a for-loop, the method took 0 milliseconds and 29 iterations.
+
+F(31)
+Recursively, the method took 7 milliseconds and 4356617 iterations.
+Using a for-loop, the method took 0 milliseconds and 30 iterations.
+
+F(32)
+Recursively, the method took 12 milliseconds and 7049155 iterations.
+Using a for-loop, the method took 0 milliseconds and 31 iterations.
+
+F(33)
+Recursively, the method took 20 milliseconds and 11405773 iterations.
+Using a for-loop, the method took 0 milliseconds and 32 iterations.
+
+F(34)
+Recursively, the method took 31 milliseconds and 18454929 iterations.
+Using a for-loop, the method took 0 milliseconds and 33 iterations.
+
+F(35)
+Recursively, the method took 52 milliseconds and 29860703 iterations.
+Using a for-loop, the method took 0 milliseconds and 34 iterations.
+
+F(36)
+Recursively, the method took 85 milliseconds and 48315633 iterations.
+Using a for-loop, the method took 0 milliseconds and 35 iterations.
+
+F(37)
+Recursively, the method took 131 milliseconds and 78176337 iterations.
+Using a for-loop, the method took 0 milliseconds and 36 iterations.
+
+F(38)
+Recursively, the method took 218 milliseconds and 126491971 iterations.
+Using a for-loop, the method took 0 milliseconds and 37 iterations.
+
+F(39)
+Recursively, the method took 351 milliseconds and 204668309 iterations.
+Using a for-loop, the method took 0 milliseconds and 38 iterations.
+
+F(40)
+Recursively, the method took 564 milliseconds and 331160281 iterations.
+Using a for-loop, the method took 0 milliseconds and 39 iterations.
