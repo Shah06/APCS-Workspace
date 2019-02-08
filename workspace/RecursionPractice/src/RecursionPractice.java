@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class RecursionPractice {
 
@@ -85,6 +85,44 @@ public class RecursionPractice {
 		return sum;
 	}
 
+	
+	
+	private static ArrayList<Integer> tower = new ArrayList<Integer>();
+	
+	private void hanoiSolution(int s, boolean b) {
+		if (s<=2) {
+			if (s==2) {
+				String R = new String();
+				String L = new String();
+				if (b) {
+					R = "right";
+					L = "left";
+				} else {
+					L = "right";
+					R = "left";
+				}
+				String M = "middle";
+				// modify so something other than disk 1 or 2
+				System.out.println("Disk 1 to " + R);
+				System.out.println("Disk 2 to " + M);
+				System.out.println("Disk 1 to " + L);
+				System.out.println("Disk 2 to " + R);
+				System.out.println("Disk 1 to " + R);
+			}
+			else {
+				System.out.println("Disk 1 to right");
+			}
+		} else {
+			hanoiSolution(s-1, false);
+			System.out.println("Move disk 3 to right"); // modify so it can be something other than disk 3
+			hanoiSolution(s-1, true);
+		}
+	}
+	
+	public void printHanoiSolution(int numberOfDisks) {
+		hanoiSolution(numberOfDisks, true);
+		// call private recursive method
+	}
 
 
 
