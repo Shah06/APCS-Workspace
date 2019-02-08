@@ -1,9 +1,25 @@
 FIBONACCI - DATA ANALYSIS
 1) What patterns do you see in timing data?
+	- Timing data for all for-loop tests is 0 milliseconds (i.e. really fast)
+	- Timing for recursion 
 
 2) What patterns do you see in number of iterations?
+	- For loop uses n-1 iterations (linear increase)
+	- Recursion starts blowing up greatly in the number of iterations (see image in project folder)
 
-3) TODO check SL
+3) Write an equation that fits each model
+	- For loop implementation:
+				L(n) = L(n-1) {L > 1};
+				L(n) = 0 {L >= 1};
+	
+	- Recursive implementation:
+				I(n) = I(n-1) + 2F(n-2) {I > 1};
+				I(n) = 1 {I <= 1};
+				where F is defined as the function F(n) = F(n-2) + F(n-1); F(0) = 1; F(1) = 1;
+				
+4) Which method is faster? Why?
+	- for-loop is faster because it iterates less times. Since it is linear in terms of time-complexity versus exponential it provides a great advantage in calculating larger terms
+	- recursion is a lot slower because for every call to fib() recurses twice, using fib(n-2) and fib(n-1), each of which also recurse; hence it is exponential and slower.
 
 
 F(0)
