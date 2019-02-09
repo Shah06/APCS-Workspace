@@ -85,42 +85,19 @@ public class RecursionPractice {
 		return sum;
 	}
 
-	
-	
-	private static ArrayList<Integer> tower = new ArrayList<Integer>();
-	
-	private void hanoiSolution(int s, boolean b) {
-		if (s<=2) {
-			if (s==2) {
-				String R = new String();
-				String L = new String();
-				if (b) {
-					R = "right";
-					L = "left";
-				} else {
-					L = "right";
-					R = "left";
-				}
-				String M = "middle";
-				// modify so something other than disk 1 or 2
-				System.out.println("Disk 1 to " + R);
-				System.out.println("Disk 2 to " + M);
-				System.out.println("Disk 1 to " + L);
-				System.out.println("Disk 2 to " + R);
-				System.out.println("Disk 1 to " + R);
-			}
-			else {
-				System.out.println("Disk 1 to right");
-			}
+		
+	private static void hanoiSolution(int disks, int start, int end, int extra) {
+		if (disks == 1) {
+			System.out.println("Move disk 1 to " + end);
 		} else {
-			hanoiSolution(s-1, false);
-			System.out.println("Move disk 3 to right"); // modify so it can be something other than disk 3
-			hanoiSolution(s-1, true);
+			hanoiSolution(disks-1, start, extra, end);
+			System.out.println("Move disk " + disks + " to " + end);
+			hanoiSolution(disks-1, extra, end, start);
 		}
 	}
 	
-	public void printHanoiSolution(int numberOfDisks) {
-		hanoiSolution(numberOfDisks, true);
+	public static void printHanoiSolution(int numberOfDisks) {
+		hanoiSolution(numberOfDisks, 1, 3, 2);
 		// call private recursive method
 	}
 
@@ -140,26 +117,28 @@ public class RecursionPractice {
 //		int test3 = fib2(s);
 //		System.out.println(test3);
 		
-		for (int i = 0; i <= 40; i++) {
-			
-			System.out.println("F(" + i + ")");
-			
-			iterations = 0;
-			long start = System.currentTimeMillis();
-			int test = fib(i);
-			long end = System.currentTimeMillis();
-			System.out.println("Recursively, the method took " + (end-start) + " milliseconds and " + iterations + " iterations.");
-			
-			iterations = 0;
-			long start2 = System.currentTimeMillis();
-			int test2 = fib2(i);
-			long end2 = System.currentTimeMillis();
-			System.out.println("Using a for-loop, the method took " + (end2-start2) + " milliseconds and " + iterations + " iterations.");
-
-			System.out.println();
-			
-		}
+//		for (int i = 0; i <= 40; i++) {
+//			
+//			System.out.println("F(" + i + ")");
+//			
+//			iterations = 0;
+//			long start = System.currentTimeMillis();
+//			int test = fib(i);
+//			long end = System.currentTimeMillis();
+//			System.out.println("Recursively, the method took " + (end-start) + " milliseconds and " + iterations + " iterations.");
+//			
+//			iterations = 0;
+//			long start2 = System.currentTimeMillis();
+//			int test2 = fib2(i);
+//			long end2 = System.currentTimeMillis();
+//			System.out.println("Using a for-loop, the method took " + (end2-start2) + " milliseconds and " + iterations + " iterations.");
+//
+//			System.out.println();
+//			
+//		}
+//		
 		
+		printHanoiSolution(3);
 				
 	}
 
