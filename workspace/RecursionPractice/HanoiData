@@ -1,0 +1,13 @@
+THE FOLLOWING IS DATA FROM printHanoiSolution(1) TO printHanoiSolution(10)
+1
+3
+7
+15
+31
+63
+127
+255
+511
+1023
+
+2^n - 1

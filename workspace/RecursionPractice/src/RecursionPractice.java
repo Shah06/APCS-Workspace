@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecursionPractice {
 
@@ -87,12 +88,13 @@ public class RecursionPractice {
 
 		
 	private static void hanoiSolution(int disks, int start, int end, int extra) {
+		iterations++;
 		if (disks == 1) {
 			System.out.println("Move disk 1 to " + end);
 		} else {
-			hanoiSolution(disks-1, start, extra, end);
-			System.out.println("Move disk " + disks + " to " + end);
-			hanoiSolution(disks-1, extra, end, start);
+			hanoiSolution(disks-1, start, extra, end); // move disks-1 to middle peg
+			System.out.println("Move disk " + disks + " to " + end); // move top disk to destination
+			hanoiSolution(disks-1, extra, end, start); // move disks-1 on top of top disk
 		}
 	}
 	
@@ -138,7 +140,16 @@ public class RecursionPractice {
 //		}
 //		
 		
-		printHanoiSolution(3);
+		// data collection for iterations
+		int[] arr = new int[10];
+		for (int i = 1; i <= 10; i++) {
+			printHanoiSolution(i);
+			arr[i-1] = iterations;
+			iterations = 0;
+		}
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]);
+		}
 				
 	}
 
