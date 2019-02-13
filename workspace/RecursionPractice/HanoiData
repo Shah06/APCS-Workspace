@@ -10,4 +10,5 @@ THE FOLLOWING IS DATA FROM printHanoiSolution(1) TO printHanoiSolution(10)
 511
 1023
 
-2^n - 1
+EQUATION
+H(n) = 2^n - 1
