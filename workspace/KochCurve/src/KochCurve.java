@@ -38,7 +38,7 @@ public class KochCurve {
 
     private void drawKochCurve(float x1, float y1, float angle, int level, float length, PApplet marker) {
     	// base case
-    	if (level < 0) {
+    	if (level < 1) {
     		marker.line(x1, y1, x1 + length * PApplet.cos(angle), y1 - length * PApplet.sin(angle));
     	} else {
     		
