@@ -6,13 +6,16 @@ import processing.event.MouseEvent;
 
 public class DrawingSurface extends PApplet {
 
-	private KochCurve curve;
-	private int level, length;
+	private KochCurve curve, curve1, curve2;
+	private int level, length, angle;
 	
 	public DrawingSurface() {
-		level = 3;
-		length = 100;
-		curve = new KochCurve (level,length);
+		level = 0;
+		length = 250;
+		angle = 30;
+		curve = new KochCurve(350, 300, level, length, 180);
+		curve1 = new KochCurve(100, 300, level, length, 60);
+		curve2 = new KochCurve(225, 85, level, length, 300);
 	}
 	
 	// The statements in the setup() function 
@@ -27,29 +30,38 @@ public class DrawingSurface extends PApplet {
 	// line is executed again.
 	public void draw() { 
 		background(255);   // Clear the screen with a white background
-		
 		textSize(12);
 		fill(0);
 		text("Use the mouse wheel to change length, use UP/DOWN keys to change level.",0,15);
+		text("Length: " + curve.getLength(), 0, 30);
+		text("Level: " + curve.getLevel(), 0, 45);
 		
 		stroke(0);
-		curve.draw(this);		
+		curve.draw(this);
+		curve1.draw(this);
+		curve2.draw(this);
 	}
 	
 	
 	public void mouseWheel(MouseEvent event) {
 		  int num = event.getCount();
 		  length -= num*10;
-		  curve = new KochCurve(level,length);
+		  curve = new KochCurve(350, 300, level, length, 180);
+		  curve1 = new KochCurve(100, 300, level, length, 60);
+		  curve2 = new KochCurve(225, 85, level, length, 300);
 	}
 	
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {
 			level++;
-			curve = new KochCurve(level,length);
+			curve = new KochCurve(350, 300, level, length, 180);
+			curve1 = new KochCurve(100, 300, level, length, 60);
+			curve2 = new KochCurve(225, 85, level, length, 300);
 		} else if (keyCode == KeyEvent.VK_DOWN) {
 			level--;
-			curve = new KochCurve(level,length);
+			curve = new KochCurve(350, 300, level, length, 180);
+			curve1 = new KochCurve(100, 300, level, length, 60);
+			curve2 = new KochCurve(225, 85, level, length, 300);
 		}
 	}
 	

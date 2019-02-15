@@ -13,6 +13,8 @@ FIBONACCI - DATA ANALYSIS
 				L(n) = 0 {L >= 1};
 	
 	- Recursive implementation:
+				Time Complexity equation: O(n) = 2^n
+				I could not find a precise exponential equation
 				I(n) = I(n-1) + 2F(n-2) {I > 1};
 				I(n) = 1 {I <= 1};
 				where F is defined as the function F(n) = F(n-2) + F(n-1); F(0) = 1; F(1) = 1;
