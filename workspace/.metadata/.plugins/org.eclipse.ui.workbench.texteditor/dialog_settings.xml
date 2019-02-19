@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="lost = " key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="stroke"/>
 			<item value="lost = "/>
 			<item value="GAME"/>
 			<item value="System.out.print"/>
@@ -22,7 +23,6 @@
 			<item value="draw("/>
 			<item value="insert("/>
 			<item value="ResizableArray&lt;"/>
-			<item value="add"/>
 		</list>
 		<list key="replacehistory">
 			<item value="marker.fill"/>
@@ -40,9 +40,9 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="298" key="DIALOG_WIDTH"/>
-		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-27|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="407" key="DIALOG_HEIGHT"/>
+		<item value="284" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="391" key="DIALOG_HEIGHT"/>
 		<item value="817" key="DIALOG_X_ORIGIN"/>
 		<item value="576" key="DIALOG_Y_ORIGIN"/>
 	</section>

@@ -20,32 +20,33 @@ public class BanachCurve extends PApplet {
 		drawBanachCurve(x, y, diameter, level, marker);
 	}
 	
-	
-	// parameters: 
 	public void drawBanachCurve(float x, float y, float diameter, int level, PApplet marker) {
-		
 		// base case
-		//TODO go from large to small
 		if (level < 1) {
 			marker.ellipse(x, y, diameter, diameter);
 		}
-		
+		// recursive case
 		else {
-			// circle in the middle
-			drawBanachCurve(x, y, diameter/2, level-1, marker);
+//			diameter /= PApplet.PI;
+			diameter /= 3.4;
+			// 8 circles around with smaller diameter
+			drawBanachCurve(x + diameter, y, diameter, level-1, marker);
+			drawBanachCurve(x - diameter, y, diameter, level-1, marker);
+			drawBanachCurve(x, y + diameter, diameter, level-1, marker);
+			drawBanachCurve(x, y - diameter, diameter, level-1, marker);
 			
-			//TODO 8 circles around
-			drawBanachCurve(x + diameter, y, diameter/2, level-1, marker);
-			drawBanachCurve(x - diameter, y, diameter/2, level-1, marker);
-			drawBanachCurve(x, y + diameter, diameter/2, level-1, marker);
-			drawBanachCurve(x, y - diameter, diameter/2, level-1, marker);
-			drawBanachCurve(x + diameter*PApplet.sin(PApplet.PI/4), y + diameter*PApplet.sin(PApplet.PI/4), diameter/2, level-1, marker);
-			drawBanachCurve(x + diameter*PApplet.sin(PApplet.PI/4), y - diameter*PApplet.sin(PApplet.PI/4), diameter/2, level-1, marker);
-			drawBanachCurve(x - diameter*PApplet.sin(PApplet.PI/4), y + diameter*PApplet.sin(PApplet.PI/4), diameter/2, level-1, marker);
-			drawBanachCurve(x - diameter*PApplet.sin(PApplet.PI/4), y - diameter*PApplet.sin(PApplet.PI/4), diameter/2, level-1, marker);
+			drawBanachCurve(x + diameter*PApplet.sin(PApplet.PI/4f), y + diameter*PApplet.sin(PApplet.PI/4f), diameter, level-1, marker);
+			drawBanachCurve(x + diameter*PApplet.sin(PApplet.PI/4f), y - diameter*PApplet.sin(PApplet.PI/4f), diameter, level-1, marker);
+			drawBanachCurve(x - diameter*PApplet.sin(PApplet.PI/4f), y + diameter*PApplet.sin(PApplet.PI/4f), diameter, level-1, marker);
+			drawBanachCurve(x - diameter*PApplet.sin(PApplet.PI/4f), y - diameter*PApplet.sin(PApplet.PI/4f), diameter, level-1, marker);
+			
+			drawBanachCurve(x, y, diameter, level-1, marker);
 		}
-		
-		
 	}
+	
+	public int getLevel() {
+		return level;
+	}
+	
 	
 }

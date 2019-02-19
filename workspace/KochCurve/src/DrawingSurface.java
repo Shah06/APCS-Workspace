@@ -15,7 +15,7 @@ public class DrawingSurface extends PApplet {
 		length = 250;
 		angle = 30;
 		level2 = 0;
-		bCurve = new BanachCurve(250, 250, 50, level2);
+		genBCurve();
 //		curve = new KochCurve(350, 300, level, length, 180);
 //		curve1 = new KochCurve(100, 300, level, length, 60);
 //		curve2 = new KochCurve(225, 85, level, length, 300);
@@ -40,10 +40,12 @@ public class DrawingSurface extends PApplet {
 		fill(0);
 		text("Use the mouse wheel to change length, use UP/DOWN keys to change level.",0,15);
 //		text("Length: " + curve.getLength(), 0, 30);
-//		text("Level: " + curve.getLevel(), 0, 45);
+		text("Number of circles: " + (int) Math.pow(9, bCurve.getLevel()), 0, 30);
+		text("Level: " + bCurve.getLevel(), 0, 45);
 		
 		stroke(0);
 		noFill();
+		strokeWeight(0.5f);
 		
 		bCurve.draw(this);
 		
@@ -71,7 +73,7 @@ public class DrawingSurface extends PApplet {
 		if (keyCode == KeyEvent.VK_UP) {
 			level++;
 			level2++;
-			bCurve = new BanachCurve(250, 250, 50, level2);
+			genBCurve();
 //			curve = new KochCurve(350, 300, level, length, 180);
 //			curve1 = new KochCurve(100, 300, level, length, 60);
 //			curve2 = new KochCurve(225, 85, level, length, 300);
@@ -81,7 +83,7 @@ public class DrawingSurface extends PApplet {
 		} else if (keyCode == KeyEvent.VK_DOWN) {
 			level--;
 			level2--;
-			bCurve = new BanachCurve(250, 250, 50, level2);
+			genBCurve();
 //			curve = new KochCurve(350, 300, level, length, 180);
 //			curve1 = new KochCurve(100, 300, level, length, 60);
 //			curve2 = new KochCurve(225, 85, level, length, 300);
@@ -89,6 +91,10 @@ public class DrawingSurface extends PApplet {
 //			curve4 = new KochCurve(150, 255, level, length, 300);
 //			curve5 = new KochCurve(275, 473, level, length, 60);
 		}
+	}
+	
+	private void genBCurve() {
+		bCurve = new BanachCurve(400, 400, 800, level2);
 	}
 	
 	
