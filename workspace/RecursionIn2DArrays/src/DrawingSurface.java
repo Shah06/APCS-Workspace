@@ -24,14 +24,15 @@ public class DrawingSurface extends PApplet {
 		surface.setResizable(false);
 		surface.setFrameRate(60);
 		
-		er = new Erase("digital.txt");
+		er = new Erase("data\\digital.txt");
 		System.out.print(er.toString());
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		System.out.println();
 //		er.eraseObject(4, 2);
-		er.solve(7, 8);
+//		er.solve(7, 8);
+//		er.solve(1, 4);
 		System.out.print(er.toString());
 		System.out.println(er.getIterations() + " iteration(s)");
 		
@@ -45,8 +46,11 @@ public class DrawingSurface extends PApplet {
 		fill(0);
 		grid = er.getData();
 		for (int i = 0; i < grid.length; i++) {
+			x = 0;
 			for (int k = 0; k < grid[i].length; k++) {
-				rect(x, y, height/grid.length, width/grid[i].length);
+				if (grid[k][i] == '*') {
+					rect(x, y, height/grid.length, width/grid[i].length);
+				}
 				x += 500/20;
 			}
 			y += 500/20;
@@ -55,33 +59,12 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	
-//	public void mousePressed() {
-//		if ((grid.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, 500f, 500f) != null)) {
-//			Point p = (grid.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, 500f, 500f));
-//			grid.toggleCell((int) p.getX(), (int) p.getY());
-//		}
-//	}
-	
-	public void keyPressed() {
-		
-//		if (key == 's' || keyCode == ENTER) {
-//			board.step();
-//		}
-//		if (keyCode == DELETE || keyCode == BACKSPACE) {
-//			board.clear();
-//		}
-//		if (keyCode == UP) {
-//			speed += 5;
-//		}
-//		if (keyCode == DOWN) {
-//			if (speed >= 0) {
-//				speed -= 5;
-//			}
-//		}
-//		if (key == ' ') {
-//			if (paused) {paused = false;}
-//			else {paused = true;}
-//		}
+	public void mousePressed() {
+		if ((er.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, width, height) != null)) {
+			Point p = (er.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, width, height));
+			er.toggleCell((int) p.getX(), (int) p.getY());
+		}
 	}
+
 	
 }

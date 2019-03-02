@@ -99,7 +99,7 @@ public class Erase {
 		String s = new String();
 		for (int i = 0; i < data.length; i++) {
 			for (int k = 0; k < data[i].length; k++) {
-				s += data[i][k];
+				s += data[k][i];
 			}
 			s += '\n';
 		}
@@ -160,6 +160,10 @@ public class Erase {
 			return new Point(tempX, tempY);
 		} return null;
 		
+	}
+	
+	public void toggleCell(int x, int y) {
+		solve(x, y);
 	}
 
 }
