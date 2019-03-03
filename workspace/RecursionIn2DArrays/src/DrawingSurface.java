@@ -7,7 +7,8 @@ public class DrawingSurface extends PApplet {
 	private char[][] grid;
 	
 //	private Erase er;
-	private Maze er;
+//	private Maze er;
+	private Labyrinth er;
 	
 	
 	public DrawingSurface() {}
@@ -25,11 +26,17 @@ public class DrawingSurface extends PApplet {
 		surface.setResizable(false);
 		surface.setFrameRate(60);
 		
-		er = new Maze("data\\level2\\test6.txt");
-		System.out.print(er.toString());
-		er.solve();
+		er = new Labyrinth("data\\level3\\test2.txt");
 		System.out.println(er.toString());
-		er.printPath();
+		System.out.println(er.findPath());
+		System.out.println(er.toString());
+		System.out.println("iterations: " + er.iterations);
+		
+//		er = new Maze("data\\level2\\test6.txt");
+//		System.out.print(er.toString());
+//		er.solve();
+//		System.out.println(er.toString());
+//		er.printPath();
 //		System.out.println();
 //		System.out.println();
 //		System.out.println();
@@ -48,27 +55,27 @@ public class DrawingSurface extends PApplet {
 		int x = 0;
 		int y = 0;
 		fill(0);
-		grid = er.getData();
-		for (int i = 0; i < grid.length; i++) {
-			x = 0;
-			for (int k = 0; k < grid[i].length; k++) {
-				if (grid[k][i] == '*') {
-					rect(x, y, height/grid.length, width/grid[i].length);
-				}
-				x += 500/20;
-			}
-			y += 500/20;
-		}
+//		grid = er.getData();
+//		for (int i = 0; i < grid.length; i++) {
+//			x = 0;
+//			for (int k = 0; k < grid[i].length; k++) {
+//				if (grid[k][i] == '*') {
+//					rect(x, y, height/grid.length, width/grid[i].length);
+//				}
+//				x += 500/20;
+//			}
+//			y += 500/20;
+//		}
 		
 	}
 	
 	
-	public void mousePressed() {
-		if ((er.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, width, height) != null)) {
-			Point p = (er.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, width, height));
-			er.toggleCell((int) p.getX(), (int) p.getY());
-		}
-	}
+//	public void mousePressed() {
+//		if ((er.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, width, height) != null)) {
+//			Point p = (er.clickToIndex(new Point((int) mouseX, (int) mouseY), 0f, 0f, width, height));
+//			er.toggleCell((int) p.getX(), (int) p.getY());
+//		}
+//	}
 
 	
 }
