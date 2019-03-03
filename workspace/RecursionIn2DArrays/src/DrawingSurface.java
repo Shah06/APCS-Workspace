@@ -6,7 +6,8 @@ public class DrawingSurface extends PApplet {
 
 	private char[][] grid;
 	
-	private Erase er;
+//	private Erase er;
+	private Maze er;
 	
 	
 	public DrawingSurface() {}
@@ -24,17 +25,20 @@ public class DrawingSurface extends PApplet {
 		surface.setResizable(false);
 		surface.setFrameRate(60);
 		
-		er = new Erase("data\\digital.txt");
+		er = new Maze("data\\level2\\test6.txt");
 		System.out.print(er.toString());
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-//		er.eraseObject(4, 2);
-//		er.solve(7, 8);
-//		er.solve(1, 4);
-		System.out.print(er.toString());
-		System.out.println(er.getIterations() + " iteration(s)");
+		er.solve();
+		System.out.println(er.toString());
+		er.printPath();
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
+////		er.eraseObject(4, 2);
+////		er.solve(7, 8);
+////		er.solve(1, 4);
+//		System.out.print(er.toString());
+//		System.out.println(er.getIterations() + " iteration(s)");
 		
 	}
 	
