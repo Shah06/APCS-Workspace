@@ -23,6 +23,7 @@ public class Labyrinth {
 	private static final int WALL = '#';
 	private static final int MONSTER = 'A';
 	private static final int CLOAK = '@';
+	private static final int FLOOR = '.';
 	
 	// Constructs an empty grid
 	public Labyrinth() {
@@ -70,61 +71,122 @@ public class Labyrinth {
 		boolean yInBounds = (y >= 0) && (y < data[x].length);
 		if (!yInBounds) return -1;
 		
-		// base case exit
-		if (data[x][y] == EXIT) {
-			System.out.println("found the exit?/");
-			return moves;
-		}
 		
-		if (data[x][y] == WALL) {
-			return -1;
-		}
 		
+		
+		// base cast exit, wall, cloak, monster
+		if (markedgrid[x][y]) return -1;
+		if (data[x][y] == EXIT) return moves;
+		if (data[x][y] == WALL) return -1;
+		if (data[x][y] == CLOAK) {
+			data[x][y] = FLOOR;
+			// recursive call on same position with hasInvisibilityCloak set to true
+		}
 		if (data[x][y] == MONSTER && !hasInvisibilityCloak) {
-			System.out.println("found monster at "  + moves + " moves");
-			markedgrid[x][y] = true;
 			return -1;
 		}
 		
-		
-		// recursive case(s)
 		else {
-			if (markedgrid[x][y]) {
-				return -1;
-			}
-			// reset if cloak
-			if (data[x][y] == CLOAK) {
-				markedgrid = new boolean[20][20];
-				markedgrid[x][y] = true;
-				System.out.println("picked up the cloak at " + moves + " moves");
-				data[x][y] = '.';
-				return findPath(x, y, true, moves+1);
-			}
+			markedgrid[x][y] = true;
+			
+			int[] sol = new int[4];
 			
 			
-			else {
-				System.out.println("currently at " + iterations);
-				if (hasInvisibilityCloak) {
-					System.out.println("i have the cloak");
+			// 4 recursive calls
+			sol[0] = findPath(x+1, y, hasInvisibilityCloak, moves+1);
+			if (-1 != sol[0]) {
+				return sol[0];
+			}
+			
+			sol[1] = findPath(x-1, y, hasInvisibilityCloak, moves+1);
+			if (-1 != sol[1]) {
+				return sol[1];
+			}
+			
+			sol[2] = findPath(x, y+1, hasInvisibilityCloak, moves+1);
+			if (-1 != sol[2]) {
+				return sol[2];
+			}
+			
+			sol[3] = findPath(x, y-1, hasInvisibilityCloak, moves+1);
+			if (-1 != sol[3]) {
+				return sol[3];
+			}
+			
+			// return the smallest of the solutions, not including -1
+			int lowestSol = 0;
+			for (int i = 0; i < sol.length; i++) {
+				if (0 == i) {
+					lowestSol = i;
+					continue;
 				}
-				markedgrid[x][y] = true;
-				int minMoves = moves;
-				System.out.println("minMoves is " + minMoves);
-				int tempMoves = -1;
-				tempMoves = findPath(x+1, y, hasInvisibilityCloak, moves+1);
-				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
-				tempMoves = findPath(x-1, y, hasInvisibilityCloak, moves+1);
-				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
-				tempMoves = findPath(x, y+1, hasInvisibilityCloak, moves+1);
-				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
-				tempMoves = findPath(x, y-1, hasInvisibilityCloak, moves+1);
-				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
-				System.out.println("about to return minMoves " + minMoves + " with tempMoves being " + tempMoves + " on iteration " + iterations);
-				// TODO fix
-				return minMoves;
+				if (sol[i] < lowestSol) {
+					lowestSol = sol[i];
+				}
 			}
+			
+			return lowestSol;
 			
 		}
+		
+		
+		
+		
+		
+//		// base case exit
+//		if (data[x][y] == EXIT) {
+//			System.out.println("found the exit?/");
+//			return moves;
+//		}
+//		
+//		if (data[x][y] == WALL) {
+//			return -1;
+//		}
+//		
+//		if (data[x][y] == MONSTER && !hasInvisibilityCloak) {
+//			System.out.println("found monster at "  + moves + " moves");
+//			markedgrid[x][y] = true;
+//			return -1;
+//		}
+//		
+//		
+//		// recursive case(s)
+//		else {
+//			if (markedgrid[x][y]) {
+//				return -1;
+//			}
+//			// reset if cloak
+//			if (data[x][y] == CLOAK) {
+//				markedgrid = new boolean[20][20];
+//				markedgrid[x][y] = true;
+//				System.out.println("picked up the cloak at " + moves + " moves");
+//				data[x][y] = '.';
+//				return findPath(x, y, true, moves+1);
+//			}
+//			
+//			
+//			else {
+//				System.out.println("currently at " + iterations);
+//				if (hasInvisibilityCloak) {
+//					System.out.println("i have the cloak");
+//				}
+//				markedgrid[x][y] = true;
+//				int minMoves = moves;
+//				System.out.println("minMoves is " + minMoves);
+//				int tempMoves = -1;
+//				tempMoves = findPath(x+1, y, hasInvisibilityCloak, moves+1);
+//				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
+//				tempMoves = findPath(x-1, y, hasInvisibilityCloak, moves+1);
+//				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
+//				tempMoves = findPath(x, y+1, hasInvisibilityCloak, moves+1);
+//				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
+//				tempMoves = findPath(x, y-1, hasInvisibilityCloak, moves+1);
+//				if (tempMoves != -1 && tempMoves < minMoves) minMoves = tempMoves;
+//				System.out.println("about to return minMoves " + minMoves + " with tempMoves being " + tempMoves + " on iteration " + iterations);
+//				// TODO fix
+//				return minMoves;
+//			}
+			
 		
 	}
 
