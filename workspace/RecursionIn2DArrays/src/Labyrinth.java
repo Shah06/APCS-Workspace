@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
 
@@ -58,7 +59,7 @@ public class Labyrinth {
 				}
 			}
 		}
-		return findPath(x, y, false, 0);
+		return findPath(x, y, true, 0);
 	}
 	
 	int iterations;
@@ -76,11 +77,14 @@ public class Labyrinth {
 		
 		// base cast exit, wall, cloak, monster
 		if (markedgrid[x][y]) return -1;
-		if (data[x][y] == EXIT) return moves;
+		if (data[x][y] == EXIT) {
+			System.out.println("found the exit");
+			return moves;
+		}
 		if (data[x][y] == WALL) return -1;
 		if (data[x][y] == CLOAK) {
 			data[x][y] = FLOOR;
-			// recursive call on same position with hasInvisibilityCloak set to true
+			findPath(x, y, true, moves+1);
 		}
 		if (data[x][y] == MONSTER && !hasInvisibilityCloak) {
 			return -1;
@@ -91,29 +95,31 @@ public class Labyrinth {
 			
 			int[] sol = new int[4];
 			
+			int tempSol;
 			
 			// 4 recursive calls
-			sol[0] = findPath(x+1, y, hasInvisibilityCloak, moves+1);
-			if (-1 != sol[0]) {
-				return sol[0];
+			tempSol = findPath(x+1, y, hasInvisibilityCloak, moves+1);
+			if (-1 != tempSol) {
+				sol[0] = tempSol;
 			}
 			
-			sol[1] = findPath(x-1, y, hasInvisibilityCloak, moves+1);
-			if (-1 != sol[1]) {
-				return sol[1];
+			tempSol = findPath(x-1, y, hasInvisibilityCloak, moves+1);
+			if (-1 != tempSol) {
+				sol[1] = tempSol;
 			}
 			
-			sol[2] = findPath(x, y+1, hasInvisibilityCloak, moves+1);
-			if (-1 != sol[2]) {
-				return sol[2];
+			tempSol = findPath(x, y+1, hasInvisibilityCloak, moves+1);
+			if (-1 != tempSol) {
+				sol[2] = tempSol;
 			}
 			
-			sol[3] = findPath(x, y-1, hasInvisibilityCloak, moves+1);
-			if (-1 != sol[3]) {
-				return sol[3];
+			tempSol = findPath(x, y-1, hasInvisibilityCloak, moves+1);
+			if (-1 != tempSol) {
+				sol[3] = tempSol;
 			}
 			
 			// return the smallest of the solutions, not including -1
+			System.out.println(Arrays.toString(sol));
 			int lowestSol = 0;
 			for (int i = 0; i < sol.length; i++) {
 				if (0 == i) {
@@ -121,6 +127,7 @@ public class Labyrinth {
 					continue;
 				}
 				if (sol[i] < lowestSol) {
+					System.out.println("sol[i] is " + sol[i] + " and lowestSol is " + lowestSol);
 					lowestSol = sol[i];
 				}
 			}
