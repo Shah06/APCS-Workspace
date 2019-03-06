@@ -59,14 +59,15 @@ public class Labyrinth {
 				}
 			}
 		}
-		return findPath(x, y, false, 0);
+		return findPath(x, y, 0);
 	}
 	
 	int iterations;
+	private boolean hasInvisibilityCloak = false;
 	// Private recursive version of findPath(), -1 is equivalent to false;
 	private boolean[][] markedgrid = new boolean[rows][cols];
-	// should return path
-	private int findPath(int x, int y, boolean hasInvisibilityCloak, int moves) {
+	// should return path as a return type
+	private int findPath(int x, int y, int moves) {
 		iterations++;
 		boolean xInBounds = (x >= 0) && (x < data.length);
 		if (!xInBounds) return -1;
@@ -83,7 +84,8 @@ public class Labyrinth {
 			markedgrid = new boolean[rows][cols];
 			markedgrid[x][y] = true;
 			data[x][y] = FLOOR;
-			findPath(x, y, true, moves+1);
+			hasInvisibilityCloak = true;
+			findPath(x, y, moves+1);
 		}
 		if (data[x][y] == MONSTER && !hasInvisibilityCloak) {
 			return -1;
@@ -94,19 +96,19 @@ public class Labyrinth {
 			
 			// 4 recursive calls
 			int lowestSol = 100000;
-			int sol1 = findPath(x+1, y, hasInvisibilityCloak, moves+1);
+			int sol1 = findPath(x+1, y, moves+1);
 			if (sol1 != -1) {
 				lowestSol = sol1;
 			}
-			int sol2 = findPath(x-1, y, hasInvisibilityCloak, moves+1);
+			int sol2 = findPath(x-1, y, moves+1);
 			if (sol2 != -1 && sol2 < lowestSol) {
 				lowestSol = sol2;
 			}
-			int sol3 = findPath(x, y+1, hasInvisibilityCloak, moves+1);
+			int sol3 = findPath(x, y+1, moves+1);
 			if (sol3 != -1 && sol3 < lowestSol) {
 				lowestSol = sol3;
 			}
-			int sol4 = findPath(x, y-1, hasInvisibilityCloak, moves+1);
+			int sol4 = findPath(x, y-1, moves+1);
 			if (sol4 != -1 && sol4 < lowestSol) {
 				lowestSol = sol4;
 			}
