@@ -59,12 +59,13 @@ public class Labyrinth {
 				}
 			}
 		}
-		return findPath(x, y, true, 0);
+		return findPath(x, y, false, 0);
 	}
 	
 	int iterations;
 	// Private recursive version of findPath(), -1 is equivalent to false;
 	private boolean[][] markedgrid = new boolean[rows][cols];
+	// should return path
 	private int findPath(int x, int y, boolean hasInvisibilityCloak, int moves) {
 		iterations++;
 		boolean xInBounds = (x >= 0) && (x < data.length);
@@ -72,17 +73,15 @@ public class Labyrinth {
 		boolean yInBounds = (y >= 0) && (y < data[x].length);
 		if (!yInBounds) return -1;
 		
-		
-		
-		
 		// base cast exit, wall, cloak, monster
 		if (markedgrid[x][y]) return -1;
 		if (data[x][y] == EXIT) {
-			System.out.println("found the exit");
 			return moves;
 		}
 		if (data[x][y] == WALL) return -1;
 		if (data[x][y] == CLOAK) {
+			markedgrid = new boolean[rows][cols];
+			markedgrid[x][y] = true;
 			data[x][y] = FLOOR;
 			findPath(x, y, true, moves+1);
 		}
@@ -93,46 +92,31 @@ public class Labyrinth {
 		else {
 			markedgrid[x][y] = true;
 			
-			int[] sol = new int[4];
-			
-			int tempSol;
-			
 			// 4 recursive calls
-			tempSol = findPath(x+1, y, hasInvisibilityCloak, moves+1);
-			if (-1 != tempSol) {
-				sol[0] = tempSol;
+			int lowestSol = 100000;
+			int sol1 = findPath(x+1, y, hasInvisibilityCloak, moves+1);
+			if (sol1 != -1) {
+				lowestSol = sol1;
 			}
-			
-			tempSol = findPath(x-1, y, hasInvisibilityCloak, moves+1);
-			if (-1 != tempSol) {
-				sol[1] = tempSol;
+			int sol2 = findPath(x-1, y, hasInvisibilityCloak, moves+1);
+			if (sol2 != -1 && sol2 < lowestSol) {
+				lowestSol = sol2;
 			}
-			
-			tempSol = findPath(x, y+1, hasInvisibilityCloak, moves+1);
-			if (-1 != tempSol) {
-				sol[2] = tempSol;
+			int sol3 = findPath(x, y+1, hasInvisibilityCloak, moves+1);
+			if (sol3 != -1 && sol3 < lowestSol) {
+				lowestSol = sol3;
 			}
-			
-			tempSol = findPath(x, y-1, hasInvisibilityCloak, moves+1);
-			if (-1 != tempSol) {
-				sol[3] = tempSol;
+			int sol4 = findPath(x, y-1, hasInvisibilityCloak, moves+1);
+			if (sol4 != -1 && sol4 < lowestSol) {
+				lowestSol = sol4;
 			}
 			
 			// return the smallest of the solutions, not including -1
-			System.out.println(Arrays.toString(sol));
-			int lowestSol = 0;
-			for (int i = 0; i < sol.length; i++) {
-				if (0 == i) {
-					lowestSol = i;
-					continue;
-				}
-				if (sol[i] < lowestSol) {
-					System.out.println("sol[i] is " + sol[i] + " and lowestSol is " + lowestSol);
-					lowestSol = sol[i];
-				}
+			if (lowestSol == 100000) {
+				return -1;
+			} else {
+				return lowestSol;
 			}
-			
-			return lowestSol;
 			
 		}
 		
