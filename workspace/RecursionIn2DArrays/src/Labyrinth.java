@@ -67,60 +67,83 @@ public class Labyrinth {
 	// Private recursive version of findPath(), -1 is equivalent to false;
 	private boolean[][] markedgrid = new boolean[rows][cols];
 	// should return path as a return type
-	private int findPath(int x, int y, int moves) {
+	private int findPath(int x, int y, boolean hasInvisibilityCloak, int moves) {
 		iterations++;
 		boolean xInBounds = (x >= 0) && (x < data.length);
 		if (!xInBounds) return -1;
 		boolean yInBounds = (y >= 0) && (y < data[x].length);
 		if (!yInBounds) return -1;
 		
-		// base cast exit, wall, cloak, monster
-		if (markedgrid[x][y]) return -1;
-		if (data[x][y] == EXIT) {
-			return moves;
-		}
+		// wall base case
 		if (data[x][y] == WALL) return -1;
-		if (data[x][y] == CLOAK) {
-			markedgrid = new boolean[rows][cols];
-			markedgrid[x][y] = true;
-			data[x][y] = FLOOR;
-			hasInvisibilityCloak = true;
-			findPath(x, y, moves+1);
-		}
-		if (data[x][y] == MONSTER && !hasInvisibilityCloak) {
-			return -1;
+		
+		// place been before with cloak
+		if (data[x][y] == '!' /*while holding the cloak*/) return -1;
+		
+		// place been before while not holding the cloak, and I don't have the cloak
+		if (data[x][y] == '!' /*while not holding cloak*/) return -1;
+		
+		// base case monster and no cloak
+		if (data[x][y] == MONSTER && !hasInvisibilityCloak) return -1;
+		
+		// base case exit
+		if (data[x][y] == EXIT) return 0;
+		
+		// recursive case
+		else {
+			
 		}
 		
-		else {
-			markedgrid[x][y] = true;
-			
-			// 4 recursive calls
-			int lowestSol = 100000;
-			int sol1 = findPath(x+1, y, moves+1);
-			if (sol1 != -1) {
-				lowestSol = sol1;
-			}
-			int sol2 = findPath(x-1, y, moves+1);
-			if (sol2 != -1 && sol2 < lowestSol) {
-				lowestSol = sol2;
-			}
-			int sol3 = findPath(x, y+1, moves+1);
-			if (sol3 != -1 && sol3 < lowestSol) {
-				lowestSol = sol3;
-			}
-			int sol4 = findPath(x, y-1, moves+1);
-			if (sol4 != -1 && sol4 < lowestSol) {
-				lowestSol = sol4;
-			}
-			
-			// return the smallest of the solutions, not including -1
-			if (lowestSol == 100000) {
-				return -1;
-			} else {
-				return lowestSol;
-			}
-			
-		}
+		
+		
+		
+//		// base cast exit, wall, cloak, monster
+//		if (markedgrid[x][y]) return -1;
+//		if (data[x][y] == EXIT) {
+//			return moves;
+//		}
+//		if (data[x][y] == WALL) return -1;
+//		if (data[x][y] == CLOAK) {
+//			markedgrid = new boolean[rows][cols];
+//			markedgrid[x][y] = true;
+//			data[x][y] = FLOOR;
+//			hasInvisibilityCloak = true;
+//			findPath(x, y, moves+1);
+//		}
+//		if (data[x][y] == MONSTER && !hasInvisibilityCloak) {
+//			return -1;
+//		}
+//		
+//		else {
+//			markedgrid[x][y] = true;
+//			
+//			// 4 recursive calls
+//			int lowestSol = 100000;
+//			int sol1 = findPath(x+1, y, moves+1);
+//			if (sol1 != -1) {
+//				lowestSol = sol1;
+//			}
+//			int sol2 = findPath(x-1, y, moves+1);
+//			if (sol2 != -1 && sol2 < lowestSol) {
+//				lowestSol = sol2;
+//			}
+//			int sol3 = findPath(x, y+1, moves+1);
+//			if (sol3 != -1 && sol3 < lowestSol) {
+//				lowestSol = sol3;
+//			}
+//			int sol4 = findPath(x, y-1, moves+1);
+//			if (sol4 != -1 && sol4 < lowestSol) {
+//				lowestSol = sol4;
+//			}
+//			
+//			// return the smallest of the solutions, not including -1
+//			if (lowestSol == 100000) {
+//				return -1;
+//			} else {
+//				return lowestSol;
+//			}
+//			
+//		}
 		
 		
 		
