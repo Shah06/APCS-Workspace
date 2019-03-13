@@ -26,6 +26,9 @@ public class Package {
 	 * @param weight The weight of the package (must be > 0)
 	 */
 	public Package(double weight, double dim1, double dim2, double dim3) {
+		if (weight <= 0 || dim1 <= 0 || dim2 <= 0 || dim3 <= 0) {
+			throw new IllegalArgumentException("All values must be positive and greater than zero.");
+		}
 		this.dim1 = dim1;
 		this.dim2 = dim2;
 		this.dim3 = dim3;

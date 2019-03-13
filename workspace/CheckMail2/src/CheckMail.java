@@ -57,31 +57,51 @@ public class CheckMail {
         controls.add(dim3);
         p.add(controls, BorderLayout.CENTER);
 
-        JOptionPane.showMessageDialog(
-            null, p, "Enter Package Properties", JOptionPane.QUESTION_MESSAGE);
         
-        double w = Double.parseDouble(weight.getText());
-        double d1 = Double.parseDouble(dim1.getText());
-        double d2 = Double.parseDouble(dim2.getText());
-        double d3 = Double.parseDouble(dim3.getText());
-        
-        Package pack = new Package(w,d1,d2,d3);
-        
-        int z = pack.checkStatus();
-        
+        double w = 0;
+        double d1 = 0;
+        double d2 = 0;
+        double d3 = 0;
         String message;
         
-        if (z == Package.ACCEPTABLE) {
-        	message = "Package is acceptable";
-        } else if (z == Package.TOO_LARGE) {
-        	message = "Package is too large";
-        } else if (z == Package.TOO_HEAVY) {
-        	message = "Package is too heavy";
-        } else {
-        	message = "Package is both too large and too heavy";
-        }
+       boolean legal = false;
+       while (!legal) {
+    	   JOptionPane.showMessageDialog(null, p, "Enter Package Properties", JOptionPane.QUESTION_MESSAGE);
+           
+    	   try {
+        	   w = Double.parseDouble(weight.getText());
+               d1 = Double.parseDouble(dim1.getText());
+               d2 = Double.parseDouble(dim2.getText());
+               d3 = Double.parseDouble(dim3.getText());
+               Package pack = new Package(w,d1,d2,d3);
+               int z = pack.checkStatus();
+               if (z == Package.ACCEPTABLE) {
+               	message = "Package is acceptable";
+               } else if (z == Package.TOO_LARGE) {
+               	message = "Package is too large";
+               } else if (z == Package.TOO_HEAVY) {
+               	message = "Package is too heavy";
+               } else {
+               	message = "Package is both too large and too heavy";
+               }
+               
+               JOptionPane.showMessageDialog(null, message);
+               legal = true;
+           } catch (NumberFormatException e) {
+        	   e.printStackTrace();
+        	   message = "Please fill all fields with numbers";
+        	   JOptionPane.showMessageDialog(null, message);
+        	   legal = false;
+           } catch (IllegalArgumentException e) {
+        	   e.printStackTrace();
+        	   message = "Please enter positive values";
+        	   JOptionPane.showMessageDialog(null, message);
+        	   legal = false;
+           }
+       }
         
-        JOptionPane.showMessageDialog(null, message);
+        
+        
 		
 	}
 
