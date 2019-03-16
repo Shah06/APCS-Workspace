@@ -20,4 +20,7 @@
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="javax.swing.UIManager"/>
+<fullyQualifiedTypeName name="javax.swing.UnsupportedLookAndFeelException"/>
 </qualifiedTypeNameHistroy>

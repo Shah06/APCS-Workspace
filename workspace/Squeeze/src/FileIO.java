@@ -1,4 +1,5 @@
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,8 +29,12 @@ public class FileIO {
 		
 	}
 	
-	public static void writeFile(String fname, ArrayList<String> fileData) {
-		
+	public static void writeFile(String fname, ArrayList<String> fileData) throws IOException {
+		FileWriter writer = new FileWriter(fname);
+		for (int i = 0; i < fileData.size(); i++) {
+			writer.write(fileData.get(i) + "\r\n");
+		}
+		writer.close();
 	}
 	
 }
