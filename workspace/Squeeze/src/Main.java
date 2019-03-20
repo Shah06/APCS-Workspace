@@ -13,7 +13,7 @@ public class Main {
 		
 		
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			JOptionPane.showMessageDialog(null, "Cannot load theme", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
@@ -53,7 +53,7 @@ public class Main {
 			    	
 			    	
 			    	// write to file
-			    	FileIO.writeFile(fname, s);
+			    	FileIO.writeFile(fname, s); // hardcode filename if testing
 					JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
 			    }
 			    else if (returnVal == JFileChooser.CANCEL_OPTION) {

@@ -1,0 +1,7 @@
+(1) movielens is run by GroupLens, a research group from University of Minnesota
+(2) Provides users with movie recommendations, provides GroupLens with data to develop 'interfaces for data exploration and recommendation'
+(3) Asks about your preferences (choose up to 3 genres to start off), rate movies, community tags
+(4) Personalized 'predicted rating', Average rating, Genres, link to imdb and tmdb, synopsis, year released, rating, run time, languages, directors, cast, release date, your tags, community tags (sort by top and all) similar movies, poster, thumbnails, trailers
+(5) Information regarding ratings, tag applications, and users
+(6) Formatted as individual CSV files (one for ratings, one for timestamps, etc.)
+	eg userId,movieId,rating,timestamp
