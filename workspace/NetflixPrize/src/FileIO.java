@@ -2,6 +2,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileIO {
@@ -23,6 +24,20 @@ public class FileIO {
 				scan.close();
 			}
 		}
+	}
+	
+	public static ArrayList<String[]> parseCSV (ArrayList<String> file) {
+		ArrayList<String[]> list = new ArrayList<String[]>();
+//		
+//		for (String line : file) {
+//			list.add(line.split(","));
+//		}
+		
+		for (int i = 1; i < file.size(); i++) {
+			list.add(file.get(i).split(","));
+		}
+		
+		return list;
 	}
 	
 	public static void writeFile(String fname, ArrayList<String> fileData) throws IOException {
