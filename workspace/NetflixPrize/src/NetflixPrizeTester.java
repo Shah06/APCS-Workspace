@@ -18,33 +18,30 @@ public class NetflixPrizeTester {
 			JOptionPane.showMessageDialog(null, "Cannot load theme", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 		
-		// GOAL TO PREDICT WHAT A USER WOULD RATE A MOVIE
-		ArrayList<String> s = null;
-		ArrayList<String[]> ratings = new ArrayList<String[]>();
-		ArrayList<String[]> movies = new ArrayList<String[]>();
+		MovieLensCSVTranslator translator = new MovieLensCSVTranslator();
+		ArrayList<Movie> movies = new ArrayList<Movie>();
+		
+		String moviesFile = "data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "movies.csv";
+		String ratingsFile = "data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "ratings.csv";
+		String tagsFile = "data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "tags.csv";
+		
+		ArrayList<String> movieStrings = null;
 		
 		try {
-			s = FileIO.readFile("data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "ratings.csv");
-			ratings = FileIO.parseCSV(s);
-			s = FileIO.readFile("data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "movies.csv");
-			movies = FileIO.parseCSV(s);
-//			User user = new User(298182); // new user
-//			user.loadData(ratings, movies);
-//			float f = user.predictRating(179819); // The Last Jedi
-//			System.out.println(f);
+			movieStrings = FileIO.readFile(moviesFile);
+			for (String line : movieStrings) {
+				Movie m = translator.translateMovie(line);
+				movies.add(m);
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-//			if (null != s) {
-//				for (String line : s) {
-//					System.out.println(line);
-//				}
-//			}
-//			
-//			for (String[] line : ratings) {
-//				System.out.println(Arrays.toString(line));
-//			}
 			System.out.println("exiting...");
+		}
+		
+		for (Movie m : movies) {
+			System.out.println(m);
 		}
 		
 	}
