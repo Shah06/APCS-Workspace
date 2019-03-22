@@ -28,10 +28,13 @@ public class NetflixPrizeTester {
 		ArrayList<String> movieStrings = null;
 		
 		try {
-			movieStrings = FileIO.readFile(moviesFile);
+			movieStrings = FileIO.readFile(moviesFile, 1);
 			for (String line : movieStrings) {
 				Movie m = translator.translateMovie(line);
 				movies.add(m);
+			}
+			for (Movie m : movies) {
+				System.out.println(m.toString());
 			}
 			
 		} catch (IOException e) {

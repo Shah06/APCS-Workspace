@@ -10,11 +10,17 @@ public class FileIO {
 	public static final String FILE_SEP = System.getProperty("file.separator");
 	public static final String LINE_SEP = System.getProperty("line.separator");
 	
-	public static ArrayList<String> readFile(String fname) throws IOException {
+	public static ArrayList<String> readFile(String fname, int offset) throws IOException {
 		Scanner scan = null;
 		try {
 			scan = new Scanner(new FileReader(fname));
 			ArrayList<String> lines = new ArrayList<>();
+			
+			// offsets file by reading lines
+			for (int i = 0; i < offset; i++) {
+				scan.nextLine();
+			}
+			
 			while (scan.hasNextLine()) {
 				lines.add(scan.nextLine());
 			}
@@ -24,6 +30,10 @@ public class FileIO {
 				scan.close();
 			}
 		}
+	}
+	
+	public static ArrayList<String> readFile(String fname) throws IOException {
+		return readFile(fname, 0);
 	}
 	
 //	public static ArrayList<String[]> parseCSV (ArrayList<String> file) {
