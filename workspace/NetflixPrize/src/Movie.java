@@ -1,6 +1,9 @@
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Movie {
 
@@ -9,7 +12,7 @@ public class Movie {
 	private String movieTitle = null;
 	private int movieId;
 	private int year;
-	private ArrayList<Integer> ratings;
+	private int[] ratings = null;
 	private float avgRating;
 	
 	public Movie(int movieID, String movieTitle, String[] movieGenres, int year) {
@@ -17,18 +20,49 @@ public class Movie {
 		this.movieTitle = movieTitle;
 		this.movieGenres = movieGenres;
 		this.year = year;
-		ratings = new ArrayList<Integer>();
 	}
 	
-	public float loadRatings(String fname) {
-		// load ratings from ratings.csv
-		// return average rating
-		
-		FileReader reader;
-		
-		try {
-			reader = new FileReader("fname");
-		} catch (something e)
+	// false means either ratingsMap is null or there are no ratings
+	public boolean setRatings(HashMap<Integer, ArrayList<Rating>> ratingsMap) {
+		if (null == ratingsMap) {
+//			System.out.println("ratingsMap is null");
+			return false;
+		}
+		ArrayList<Rating> m_ratings = ratingsMap.get(movieId);
+		if (m_ratings == null || m_ratings.size() == 0) {
+//			System.out.println("No ratings available for " + movieId);
+			return false;
+		}
+		ratings = new int[m_ratings.size()];
+		for (int i = 0; i < m_ratings.size(); i++) {
+			ratings[i] = m_ratings.get(i).getRatingInt();
+		}
+		return true;
+	}
+	
+	// returns -1f if no valid rating
+	public float calcAvgRating() {
+		if (null == ratings) return -1f;
+		int sum = 0;
+		int n = ratings.length;
+		for (int i = 0; i < ratings.length; i++) {
+			sum += ratings[i];
+		}
+		avgRating = ((float)sum) / (10f * (float)n);
+		return avgRating;
+	}
+	
+	// tester
+	public void printRatings() {
+		if (null == ratings) {
+			System.out.println("no ratings for this movie");
+			return;
+		}
+		System.out.println("printing ratings for movieId: " + movieId);
+		for (int i : ratings) {
+			float rating = ((float) i) / 10f;
+			System.out.println(rating);
+		}
 	}
 	
 	public String getTitle() {
@@ -44,7 +78,7 @@ public class Movie {
 		return new String("Title: " + movieTitle + "\n"
 				+ "movieId: " + movieId + "\n"
 				+ "genres: " + Arrays.toString(movieGenres) + "\n"
-				+ "year: " + yearDisplay + "\n"
+				+ "year: " + yearDisplay
 				/*todo print user tags*/);
 	}
 	
