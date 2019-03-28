@@ -25,29 +25,6 @@ public class MovieLensCSVTranslator {
 		// todo check imdb, etc.
 	}
 	
-	// returns hashmap of userId and their ratings (int * 10)
-	public HashMap<Integer, ArrayList<Integer>> getUserRatings(int uid, String fname) {
-		HashMap<Integer, ArrayList<Integer>> userRatings = new HashMap<Integer, ArrayList<Integer>>();
-		HashMap<Integer, ArrayList<Rating>> ratings = parseRatings(fname);
-		for (Integer movie : ratings.keySet()) {
-			// iterate through  movie->rating
-			// if rating belongs to user, then add to hashmap
-			for (Rating rating : ratings.get(movie)) {
-				if (rating.getUser() == uid) {
-					// if no key exists, make one, else add to arraylist
-					if (userRatings.containsKey(uid)) {
-						userRatings.get(uid).add(rating.getRatingInt());
-					} else {
-						ArrayList<Integer> uRating = new ArrayList<Integer>();
-						uRating.add(rating.getRatingInt());
-						userRatings.put(uid, uRating);
-					}
-				}
-			}
-		}
-		return userRatings;
-	}
-	
 	//Hashmap<movieId, ArrayList<Rating>>
 	public HashMap<Integer, ArrayList<Rating>> parseRatings(String fname) {
 		HashMap<Integer, ArrayList<Rating>> ratings = new HashMap<Integer, ArrayList<Rating>>();
@@ -62,12 +39,12 @@ public class MovieLensCSVTranslator {
 				int userId = Integer.parseInt(splits[0]);	
 				// if it already contains movie, add it to rating[] for that key
 				if (ratings.containsKey(movieId)) {
-					ratings.get(movieId).add(new Rating(rating, userId));
+					ratings.get(movieId).add(new Rating(rating, userId, movieId));
 				} 
 				// otherwise, create a new key
 				else {
 					ArrayList<Rating> r = new ArrayList<Rating>();
-					r.add(new Rating(rating, userId));
+					r.add(new Rating(rating, userId, movieId));
 					ratings.put(movieId, r);
 				}
 			}

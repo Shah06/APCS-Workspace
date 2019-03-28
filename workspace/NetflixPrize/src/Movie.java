@@ -22,6 +22,10 @@ public class Movie {
 		this.year = year;
 	}
 	
+	public int getId() {
+		return this.movieId;
+	}
+	
 	// false means either ratingsMap is null or there are no ratings
 	public boolean setRatings(HashMap<Integer, ArrayList<Rating>> ratingsMap) {
 		if (null == ratingsMap) {
@@ -80,6 +84,10 @@ public class Movie {
 				+ "genres: " + Arrays.toString(movieGenres) + "\n"
 				+ "year: " + yearDisplay
 				/*todo print user tags*/);
+	}
+	
+	public String[] getGenres() {
+		return this.movieGenres;
 	}
 	
 }

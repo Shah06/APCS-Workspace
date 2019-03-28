@@ -50,11 +50,12 @@ public class NetflixPrizeTester {
 //				System.out.println();
 			}
 			
-			// gets userRatings
-			HashMap<Integer, ArrayList<Integer>> userRatings = new HashMap<Integer, ArrayList<Integer>>();
+			// TODO hashmap for looking up movies by name
+			
 			// test load a user
 			User user = new User(1);
-//			user.loadRatings();
+			user.loadRatings(ratings);
+			System.out.println("rating for movie: " + user.getRating(1));
 			
 		} catch (IOException e) {
 			e.printStackTrace();

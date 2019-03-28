@@ -2,12 +2,16 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="1076" key="selection"/>
+		<item value="setRating" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="setRating"/>
+			<item value="ratings"/>
+			<item value="genreLookupTable"/>
+			<item value="moviesFile"/>
 			<item value=",1076,"/>
 			<item value="1076"/>
 			<item value="uid"/>
@@ -19,12 +23,9 @@
 			<item value="legal = true"/>
 			<item value="System.out"/>
 			<item value="sol4"/>
-			<item value="sol3"/>
-			<item value="sol2"/>
-			<item value="sol1"/>
-			<item value="get"/>
 		</list>
 		<list key="replacehistory">
+			<item value="movieLookupTable"/>
 			<item value="user"/>
 			<item value=".split(&quot;\\|&quot;)"/>
 			<item value="sol[3]"/>
@@ -39,14 +40,13 @@
 			<item value="int["/>
 			<item value="ChessPiece[][]"/>
 			<item value="[8][8]"/>
-			<item value="char["/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="327" key="DIALOG_WIDTH"/>
-		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-30|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="436" key="DIALOG_HEIGHT"/>
-		<item value="520" key="DIALOG_X_ORIGIN"/>
-		<item value="275" key="DIALOG_Y_ORIGIN"/>
+		<item value="298" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-27|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="407" key="DIALOG_HEIGHT"/>
+		<item value="1083" key="DIALOG_X_ORIGIN"/>
+		<item value="263" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
