@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class NetflixPredictor {
 
@@ -114,21 +116,57 @@ public class NetflixPredictor {
 					}
 				}
 			}
+			// TODO work on user similarity
+			// compare the IDs of the movies they have rated;
+			int similarMoviesRated = 0;
+			float theirAverageRating = -1; // invalid for now
+			ArrayList<Rating> mRatings = ratings.get(movieID);
+			// for each user in the ratings file, compare similarity
+			for (Rating mRating : mRatings) {
+				int uid = mRating.getUser();
+				User.uSet(uid);
+				
+				
+			}
+			User.uSet(userID);
+			User.uLoad(ratings);
+			uRating = User.uGetRating(movieID);
+			
 			
 			// user has rated items in the genre before
 			if (0 != n) {
 				// weight with movie average rating
-				float mAvg = movieLookupTable.get(movieID).calcAvgRating();
-				float div = mAvg/gAvg; // use this somehow
-				float uAvg = sumRating / ((float)n);
-				return uAvg;
+				float mAvg = movieLookupTable.get(movieID).calcAvgRating(); // weight: 30
+//				float div = mAvg/gAvg; // use this somehow
+				float uAvg = sumRating / ((float)n); // weight: 70
+				
+				float weightedAvg;
+				// check for outliers
+				if (Math.abs(mAvg - uAvg) > 2) {
+					// weight closer to user
+					weightedAvg = (0.9f*uAvg) + (0.1f*mAvg);
+				} else {
+					weightedAvg = (0.85f*uAvg) + (0.15f*mAvg);
+				}
+				
+				return weightedAvg;
+//				return uAvg;
 			}
 			
-			// user does not have anything rated in the genre, return average movie rating
-			return movieLookupTable.get(movieID).calcAvgRating();
+			// user does not have anything rated in the genre, return average movie rating weighted with user average rating
+			Collection<Integer> ratings = moviesRated.values(); // get rating for that user
+			float uAvg = 0;
+			int iterations = 0;
+			for (int rating : ratings) {
+				uAvg += rating;
+				iterations++;
+			}
+			uAvg /= (iterations*10); // accounts for the fact that ratings is populated w/Integers
+			float mAvg = movieLookupTable.get(movieID).calcAvgRating();
+			return ((0.9*uAvg) + (0.1*mAvg)) * 0.9;
 			
 		} else {
-			return uRating;
+			return uRating; // user has already rated the movie
 		}
 		
 	}
