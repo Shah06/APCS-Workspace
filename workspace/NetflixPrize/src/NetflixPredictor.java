@@ -119,7 +119,7 @@ public class NetflixPredictor {
 			if (0 != n) {
 				// weight with movie average rating
 				float mAvg = movieLookupTable.get(movieID).calcAvgRating();
-				float div = mAvg/gAvg;
+				float div = mAvg/gAvg; // use this somehow
 				float uAvg = sumRating / ((float)n);
 				return uAvg;
 			}

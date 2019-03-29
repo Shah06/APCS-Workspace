@@ -115,7 +115,7 @@
                 </children>
               </children>
               <children xsi:type="basic:PartSashContainer" xmi:id="_mFvDgkIjEemjEKb3IW9KAA" containerData="7533" selectedElement="_mFvDh0IjEemjEKb3IW9KAA">
-                <children xsi:type="basic:PartSashContainer" xmi:id="_mFvDg0IjEemjEKb3IW9KAA" containerData="6255" selectedElement="_mFvDhEIjEemjEKb3IW9KAA" horizontal="true">
+                <children xsi:type="basic:PartSashContainer" xmi:id="_mFvDg0IjEemjEKb3IW9KAA" containerData="6504" selectedElement="_mFvDhEIjEemjEKb3IW9KAA" horizontal="true">
                   <children xsi:type="advanced:Placeholder" xmi:id="_mFvDhEIjEemjEKb3IW9KAA" elementId="org.eclipse.ui.editorss" containerData="5000" ref="_mFvrbEIjEemjEKb3IW9KAA"/>
                   <children xsi:type="basic:PartStack" xmi:id="_mFvDhUIjEemjEKb3IW9KAA" elementId="org.eclipse.mylyn.tasks.ui.views.tasksMStack" toBeRendered="false" containerData="2666">
                     <children xsi:type="advanced:Placeholder" xmi:id="_mFvDhkIjEemjEKb3IW9KAA" elementId="org.eclipse.mylyn.tasks.ui.views.tasks" toBeRendered="false" ref="_mFvr0kIjEemjEKb3IW9KAA" closeable="true">
@@ -124,7 +124,7 @@
                     </children>
                   </children>
                 </children>
-                <children xsi:type="basic:PartStack" xmi:id="_mFvDh0IjEemjEKb3IW9KAA" elementId="bottom" containerData="3745" selectedElement="_gUOXkEekEemSG4NGhdc9sw">
+                <children xsi:type="basic:PartStack" xmi:id="_mFvDh0IjEemjEKb3IW9KAA" elementId="bottom" containerData="3496" selectedElement="_gUOXkEekEemSG4NGhdc9sw">
                   <tags>org.eclipse.e4.secondaryDataStack</tags>
                   <tags>Java</tags>
                   <tags>Debug</tags>
@@ -387,7 +387,7 @@
             <tags>removeOnHide</tags>
           </children>
           <children xsi:type="basic:Part" xmi:id="_9p6sAFC0EemTsp3TT7HlXA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="NetflixPredictor.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-            <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;NetflixPredictor.java&quot; partName=&quot;NetflixPredictor.java&quot; title=&quot;NetflixPredictor.java&quot; tooltip=&quot;NetflixPrize/src/NetflixPredictor.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/NetflixPrize/src/NetflixPredictor.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;4508&quot; selectionTopPixel=&quot;1894&quot;/>&#xD;&#xA;&lt;/editor>"/>
+            <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;NetflixPredictor.java&quot; partName=&quot;NetflixPredictor.java&quot; title=&quot;NetflixPredictor.java&quot; tooltip=&quot;NetflixPrize/src/NetflixPredictor.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/NetflixPrize/src/NetflixPredictor.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;5110&quot; selectionTopPixel=&quot;2086&quot;/>&#xD;&#xA;&lt;/editor>"/>
             <tags>Editor</tags>
             <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
             <tags>removeOnHide</tags>
@@ -395,7 +395,7 @@
             <tags>activeOnClose</tags>
           </children>
           <children xsi:type="basic:Part" xmi:id="_w5_AQFC1EemTsp3TT7HlXA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="User.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-            <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;User.java&quot; partName=&quot;User.java&quot; title=&quot;User.java&quot; tooltip=&quot;NetflixPrize/src/User.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/NetflixPrize/src/User.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1169&quot; selectionTopPixel=&quot;395&quot;/>&#xD;&#xA;&lt;/editor>"/>
+            <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;User.java&quot; partName=&quot;User.java&quot; title=&quot;User.java&quot; tooltip=&quot;NetflixPrize/src/User.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/NetflixPrize/src/User.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1203&quot; selectionTopPixel=&quot;372&quot;/>&#xD;&#xA;&lt;/editor>"/>
             <tags>Editor</tags>
             <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
             <tags>removeOnHide</tags>
@@ -842,7 +842,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_mFvr5kIjEemjEKb3IW9KAA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_VNFcZ1CqEemTsp3TT7HlXA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_mFxiokIjEemjEKb3IW9KAA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_OsQA8FI8Eem4QeffwzHAhg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_mFxiokIjEemjEKb3IW9KAA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_mFvr80IjEemjEKb3IW9KAA" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -905,7 +905,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_mFvsW0IjEemjEKb3IW9KAA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_VNFcdFCqEemTsp3TT7HlXA" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_mFxiFEIjEemjEKb3IW9KAA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_OsU5cFI8Eem4QeffwzHAhg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_mFxiFEIjEemjEKb3IW9KAA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_mFvsZkIjEemjEKb3IW9KAA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
