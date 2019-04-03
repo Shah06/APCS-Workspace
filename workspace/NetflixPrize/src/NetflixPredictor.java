@@ -78,6 +78,9 @@ public class NetflixPredictor {
 	 */
 	public double getRating(int userID, int movieID) {
 		UserUtils.uSet(userID);
+		if (ratings.get(movieID) == null) {
+			return -1f;
+		}
 		UserUtils.uLoad(ratings);
 		return UserUtils.uGetRating(movieID);
 	}
@@ -108,6 +111,7 @@ public class NetflixPredictor {
 				String[] movieGenres = movieLookupTable.get(movie).getGenres();
 				for (String movieGenre : movieGenres) {
 					for (String genre : genres) {
+						// TODO get rid of linear search?? String??
 						if (movieGenre.equals(genre)) {
 							// one or more genres match, add weighting to rating
 							sumRating += UserUtils.uGetRating(movie);

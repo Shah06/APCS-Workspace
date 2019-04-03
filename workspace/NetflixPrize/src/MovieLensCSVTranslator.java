@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class MovieLensCSVTranslator {
 	
@@ -47,6 +48,11 @@ public class MovieLensCSVTranslator {
 					r.add(new Rating(rating, userId, movieId));
 					ratings.put(movieId, r);
 				}
+			}
+			
+			// sort each ArrayList<Rating> in the hashmap
+			for (Integer i : ratings.keySet()) {
+				Collections.sort(ratings.get(i));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

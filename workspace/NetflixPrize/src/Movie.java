@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
 
 	private String[] userTags = null;
 	private String[] movieGenres = null;
@@ -15,8 +15,12 @@ public class Movie {
 	private int[] ratings = null;
 	private float avgRating;
 	
-	public Movie(int movieID, String movieTitle, String[] movieGenres, int year) {
-		this.movieId = movieID;
+	public Movie(int movieId) {
+		this.movieId = movieId;
+	}
+	
+	public Movie(int movieId, String movieTitle, String[] movieGenres, int year) {
+		this.movieId = movieId;
 		this.movieTitle = movieTitle;
 		this.movieGenres = movieGenres;
 		this.year = year;
@@ -75,7 +79,6 @@ public class Movie {
 	
 	public String toString() {
 		String yearDisplay = "" + year;
-		//TODO
 		if (-1 == year) {
 			yearDisplay = "NO VALID YEAR";
 		}
@@ -88,6 +91,11 @@ public class Movie {
 	
 	public String[] getGenres() {
 		return this.movieGenres;
+	}
+
+	@Override
+	public int compareTo(Movie arg0) {
+		return this.getId() - arg0.getId();
 	}
 	
 }

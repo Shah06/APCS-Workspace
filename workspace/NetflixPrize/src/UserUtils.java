@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -29,14 +30,32 @@ public class UserUtils {
 		for (Integer movie : ratings.keySet()) {
 //			System.out.println("movie is " + movie);
 			// for each rating in that movie
-			for (Rating r : ratings.get(movie)) {
-				// throw Movie, Rating*10 inside of moviesRated
-				if (r.getUser() == userId) {
-					moviesRated.put(r.getMovieId(), r.getRatingInt());
-				}
+			ArrayList<Rating> mRatings = ratings.get(movie);
+			// the following binary search is pointless and expensive (because it happens each time)
+			// TODO sort each ratings array at the start
+			Collections.sort(mRatings);
+			int i = Collections.binarySearch(mRatings, new Rating(userId, movie));
+			if (i > -1) {
+				moviesRated.put(mRatings.get(i).getMovieId(), mRatings.get(i).getRatingInt());
 			}
+			
+//			for (Rating r : mRatings) {
+//				// throw Movie, Rating*10 inside of moviesRated
+//				// TODO get rid of this linear search
+//				if (r.getUser() == userId) {
+//					moviesRated.put(r.getMovieId(), r.getRatingInt());
+//				}
+//			}
 		}
 	}
+	
+//	public static void uLoad(ArrayList<Rating> ratings, int movieId) {
+//		// note that ratings is already sorted
+//		int i = Collections.binarySearch(ratings, new Rating(userId, movieId));
+//		if (i > -1) {
+//			moviesRated.put(ratings.get(i).getMovieId(), ratings.get(i).getRatingInt());
+//		}
+//	}
 	
 	public static int uGetId() {
 		return userId;
@@ -44,6 +63,7 @@ public class UserUtils {
 	
 	// return -1 if movie not yet rated
 	public static float uGetRating(int movieId) {
+		if (null == moviesRated) return -1f;
 		if (moviesRated.containsKey(movieId)) {
 			return ((float)moviesRated.get(movieId)) / 10f;
 		}
