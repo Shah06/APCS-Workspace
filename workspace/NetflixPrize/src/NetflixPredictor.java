@@ -6,12 +6,12 @@ import java.util.List;
 
 public class NetflixPredictor {
 
-
 	// Add fields to represent your database.
 	private MovieLensCSVTranslator translator;
 	private ArrayList<Movie> movies;
 	private HashMap<Integer, ArrayList<Rating>> ratings;
 	private HashMap<Integer, Movie> movieLookupTable;
+	private ArrayList<ArrayList<Rating>> cSimMatrix; // user cosine similarity matrix
 	private final float gAvg = 3.50115f;
 	
 	/**
@@ -77,9 +77,9 @@ public class NetflixPredictor {
 	 * @return The rating that userNumber gave movieNumber, or -1 if the user does not exist in the database, the movie does not exist, or the movie has not been rated by this user.
 	 */
 	public double getRating(int userID, int movieID) {
-		User.uSet(userID);
-		User.uLoad(ratings);
-		return User.uGetRating(movieID);
+		UserUtils.uSet(userID);
+		UserUtils.uLoad(ratings);
+		return UserUtils.uGetRating(movieID);
 	}
 	
 	/**
@@ -92,9 +92,9 @@ public class NetflixPredictor {
 	 */
 	public double guessRating(int userID, int movieID) {
 		// check if user already rated movie
-		User.uSet(userID);
-		User.uLoad(ratings);
-		float uRating = User.uGetRating(movieID);
+		UserUtils.uSet(userID);
+		UserUtils.uLoad(ratings);
+		float uRating = UserUtils.uGetRating(movieID);
 		if (uRating < 0) {
 			// lookup movie genres of specified movie
 			String genres[] = movieLookupTable.get(movieID).getGenres();
@@ -102,7 +102,7 @@ public class NetflixPredictor {
 			// loop through user rating file, check for genre
 			float sumRating = 0;
 			int n =0;
-			HashMap<Integer, Integer> moviesRated = User.uGetRatings(); // get rating for that user
+			HashMap<Integer, Integer> moviesRated = UserUtils.uGetRatings(); // get rating for that user
 			for (Integer movie : moviesRated.keySet()) {
 				// check if that movie has anything in genres[]
 				String[] movieGenres = movieLookupTable.get(movie).getGenres();
@@ -110,36 +110,35 @@ public class NetflixPredictor {
 					for (String genre : genres) {
 						if (movieGenre.equals(genre)) {
 							// one or more genres match, add weighting to rating
-							sumRating += User.uGetRating(movie);
+							sumRating += UserUtils.uGetRating(movie);
 							n++;
 						}
 					}
 				}
 			}
-			// TODO work on user similarity
-			// compare the IDs of the movies they have rated;
-			int similarMoviesRated = 0;
-			float theirAverageRating = -1; // invalid for now
-			ArrayList<Rating> mRatings = ratings.get(movieID);
-			// for each user in the ratings file, compare similarity
-			for (Rating mRating : mRatings) {
-				int uid = mRating.getUser();
-				User.uSet(uid);
-				
-				
-			}
-			User.uSet(userID);
-			User.uLoad(ratings);
-			uRating = User.uGetRating(movieID);
 			
+			// weight with movie average rating
+			float mAvg = movieLookupTable.get(movieID).calcAvgRating(); // weight: 30
+			float uAvg = sumRating / ((float)n); // weight: 70
+			
+			// TODO work on user similarity
+			// cosine similarity matrix
 			
 			// user has rated items in the genre before
 			if (0 != n) {
-				// weight with movie average rating
-				float mAvg = movieLookupTable.get(movieID).calcAvgRating(); // weight: 30
-//				float div = mAvg/gAvg; // use this somehow
-				float uAvg = sumRating / ((float)n); // weight: 70
 				
+//				float weightedAvg;
+//				// check for outliers
+//				if (Math.abs(mAvg - uAvg) > 2) {
+//					// weight closer to user
+//					weightedAvg = (0.9f*uAvg) + (0.1f*mAvg);
+//				} else {
+//					weightedAvg = (0.85f*uAvg) + (0.15f*mAvg);
+//				}
+//				return weightedAvg;
+//				
+				
+				// new alg; checks for user similarity
 				float weightedAvg;
 				// check for outliers
 				if (Math.abs(mAvg - uAvg) > 2) {
@@ -148,21 +147,22 @@ public class NetflixPredictor {
 				} else {
 					weightedAvg = (0.85f*uAvg) + (0.15f*mAvg);
 				}
-				
 				return weightedAvg;
-//				return uAvg;
+				
+				
+				
 			}
 			
 			// user does not have anything rated in the genre, return average movie rating weighted with user average rating
 			Collection<Integer> ratings = moviesRated.values(); // get rating for that user
-			float uAvg = 0;
+			uAvg = 0;
 			int iterations = 0;
 			for (int rating : ratings) {
 				uAvg += rating;
 				iterations++;
 			}
 			uAvg /= (iterations*10); // accounts for the fact that ratings is populated w/Integers
-			float mAvg = movieLookupTable.get(movieID).calcAvgRating();
+			mAvg = movieLookupTable.get(movieID).calcAvgRating();
 			return ((0.9*uAvg) + (0.1*mAvg)) * 0.9;
 			
 		} else {

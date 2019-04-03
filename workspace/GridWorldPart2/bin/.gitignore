@@ -1,9 +1,10 @@
-/BoxBug.class
 /BoxBug.gif
+/ChallengeBug.gif
+/info/
+/BoxBug.class
 /BoxBugRunner.class
 /BugRunner.class
 /ChallengeBug.class
-/ChallengeBug.gif
 /ChallengeBugTester.class
 /CircleBug.class
 /CircleBugRunner.class
@@ -13,4 +14,3 @@
 /SpiralBugRunner.class
 /ZBug.class
 /ZBugRunner.class
-/info/

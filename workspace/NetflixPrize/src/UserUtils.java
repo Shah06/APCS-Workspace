@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class User {
+
+// important: this class is a STATE MACHINE; it does not model an actual user
+
+public class UserUtils {
 	
 	private static int userId;
 	// movieId, rating *10
@@ -47,6 +50,34 @@ public class User {
 		else {
 			return -1f;
 		}
+	}
+	
+	public static float uGetAvgRating() {
+		if (null == moviesRated) {
+			throw new NullPointerException("please call uLoad() first");
+		} else {
+			float avg = 0;
+			int i = 0;
+			for (int k : moviesRated.keySet()) {
+				avg += moviesRated.get(k);
+				i++;
+			}
+			return avg/i;
+		}
+	}
+	
+	// gets average from an ArrayList<Integer> of movies
+	public static float uGetAvgRating(ArrayList<Integer> movies) {
+		float sum = 0;
+		int n = 0;
+		
+		for (int m : movies) {
+			// lookup in moviesRated
+			sum += ((float)moviesRated.get(m) / 10f);
+			n++;
+		}
+		
+		return sum / n;
 	}
 	
 }
