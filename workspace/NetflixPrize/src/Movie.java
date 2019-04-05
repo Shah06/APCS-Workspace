@@ -74,7 +74,7 @@ public class Movie implements Comparable<Movie> {
 	}
 	
 	public String getTitle() {
-		return new String(movieTitle);
+		return movieTitle;
 	}
 	
 	public String toString() {

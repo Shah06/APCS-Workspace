@@ -123,11 +123,6 @@ public class NetflixTester {
 			System.out.println("Tested " + (numberTested+numberPresent) + "/" + testDataLines.size());
 		}
 
-		/*
-		 * OTHER TESTS I ADDED IN
-		 */
-		System.out.println(tester.recommendMovie(1));
-		
 		System.out.println("\n***Stopping the clock***");
 		long endTime = System.currentTimeMillis();
 		long time = (endTime-startTime);

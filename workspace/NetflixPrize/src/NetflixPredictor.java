@@ -44,6 +44,7 @@ public class NetflixPredictor {
 		String moviesFile = movieFilePath;
 		String ratingsFile = ratingFilePath;
 		String tagsFile = tagFilePath;
+		String linksFile = linkFilePath;
 		translator = new MovieLensCSVTranslator();
 		movies = new ArrayList<Movie>();
 		ratings = new HashMap<Integer, ArrayList<Rating>>();
@@ -62,10 +63,12 @@ public class NetflixPredictor {
 			}
 			ratings = translator.parseRatings(ratingsFile);
 			
+			ArrayList<Integer> imdb_urls = new ArrayList<Integer>();
+			
 			// loads ratings into movies
 			for (Movie m : movies) {
 				movieLookupTable.put(m.getId(), m);
-				m.setRatings(ratings);	
+				m.setRatings(ratings);
 			}
 			
 			// populates the user hashmap with hashmap of ratings
@@ -92,18 +95,18 @@ public class NetflixPredictor {
 			
 			// converts mvecs into cSimMatrix
 			cSimMatrix = new MappableDouble[users.size()][users.size()];
-			int counter1 = -1;
-			for (Integer index1 : users.keySet()) {
-				counter1++;
-				int counter2 = -1;
-				for (Integer index2 : users.keySet()) {
-					counter2++;
-					double magicNumber = calcCosineSim(users.get(index1).getMVec(), users.get(index2).getMVec());
-					cSimMatrix[counter1][counter2] = new MappableDouble();
-					cSimMatrix[counter1][counter2].value = magicNumber;
-					cSimMatrix[counter1][counter2].pair = new Pair(users.get(index1), users.get(index2));
-				}
-			}
+//			int counter1 = -1;
+//			for (Integer index1 : users.keySet()) {
+//				counter1++;
+//				int counter2 = -1;
+//				for (Integer index2 : users.keySet()) {
+//					counter2++;
+//					double magicNumber = calcCosineSim(users.get(index1).getMVec(), users.get(index2).getMVec());
+//					cSimMatrix[counter1][counter2] = new MappableDouble();
+//					cSimMatrix[counter1][counter2].value = magicNumber;
+//					cSimMatrix[counter1][counter2].pair = new Pair(users.get(index1), users.get(index2));
+//				}
+//			}
 			
 			
 		} catch (IOException e) {
@@ -237,17 +240,18 @@ public class NetflixPredictor {
 		
 		User u = null;
 		
-		int index1 = users.get(userID).getPos();
+//		int index1 = users.get(userID).getPos();
+		int index1 = userID-1;
 		// get this user's cosine similarity array
 		MappableDouble[] cSimU = cSimMatrix[index1];
 		
 		// find the lowest value and position of the value associated with that
-		int pos = -1; // start off with a garbage value
-		MappableDouble lowest = cSimU[0]; // starting value
+		MappableDouble lowest = new MappableDouble(); // garbage value
+		lowest.value = 30; // garbage for now
 		
 		// sets lowest to lowest value
 		for(int i = 0; i < cSimU.length; i++) {
-			if (i == index1) break;
+			if (i == index1) continue;
 			if (cSimU[i].value < lowest.value) {
 				lowest = cSimU[i];
 			}
@@ -280,7 +284,12 @@ public class NetflixPredictor {
 			return mid;
 		} 
 		
-		return 0;
+		return -1;
+		
+	}
+	
+	public ArrayList<Movie> getMovies() {
+		return movies;
 	}
 	
 }

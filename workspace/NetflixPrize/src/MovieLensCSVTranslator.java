@@ -22,8 +22,20 @@ public class MovieLensCSVTranslator {
 		return new Movie(movieId, movieTitle, movieGenres, year);
 	}
 	
-	public void translateLink(String line, ArrayList<Movie> movies) {
-		// TODO check imdb, etc.
+	public HashMap<Integer, Integer> translateLink(String fname) {
+		HashMap<Integer, Integer> imdb = new HashMap<Integer, Integer>();
+		ArrayList<String> list = null;
+		try {
+			list = FileIO.readFile(fname, 1);
+			String[] splits = null;
+			for (String line : list) {
+				splits = line.split(",");
+				imdb.put(Integer.parseInt(splits[0]), Integer.parseInt(splits[1]));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return imdb;
 	}
 	
 	//Hashmap<movieId, ArrayList<Rating>>
