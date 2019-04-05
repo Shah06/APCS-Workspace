@@ -2,29 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="System" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="System"/>
+			<item value="break"/>
+			<item value=".getPos"/>
+			<item value="finally"/>
+			<item value="moviesRated"/>
 			<item value="getRating"/>
+			<item value="translator"/>
+			<item value="movieStrings"/>
+			<item value="System"/>
 			<item value="guessRating"/>
 			<item value="uGetRating"/>
 			<item value=" rating "/>
 			<item value="rating"/>
 			<item value="mRatings"/>
-			<item value="moviesRated"/>
 			<item value="uGetRatings"/>
 			<item value="setRating"/>
-			<item value="ratings"/>
-			<item value="genreLookupTable"/>
-			<item value="moviesFile"/>
-			<item value=",1076,"/>
-			<item value="1076"/>
 		</list>
 		<list key="replacehistory">
+			<item value="ratings"/>
 			<item value="movieLookupTable"/>
 			<item value="user"/>
 			<item value=".split(&quot;\\|&quot;)"/>
@@ -39,13 +40,12 @@
 			<item value="[4][4]"/>
 			<item value="int["/>
 			<item value="ChessPiece[][]"/>
-			<item value="[8][8]"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="284" key="DIALOG_WIDTH"/>
-		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="390" key="DIALOG_HEIGHT"/>
+		<item value="298" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-27|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="407" key="DIALOG_HEIGHT"/>
 		<item value="959" key="DIALOG_X_ORIGIN"/>
 		<item value="263" key="DIALOG_Y_ORIGIN"/>
 	</section>

@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -8,11 +9,21 @@ public class NetflixPredictor {
 
 	// Add fields to represent your database.
 	private MovieLensCSVTranslator translator;
-	private ArrayList<Movie> movies;
 	private HashMap<Integer, ArrayList<Rating>> ratings;
+	private HashMap<Integer, User> users;
+	private ArrayList<Movie> movies;
+	private MappableDouble[][] cSimMatrix; // rename later
 	private HashMap<Integer, Movie> movieLookupTable;
-	private ArrayList<ArrayList<Rating>> cSimMatrix; // user cosine similarity matrix
-	private final float gAvg = 3.50115f;
+	private ArrayList<MVector> mvecs;
+	
+//	private MovieLensCSVTranslator translator;
+//	private ArrayList<Movie> movies;
+//	private HashMap<Integer, ArrayList<Rating>> ratings;
+//	private HashMap<Integer, Movie> movieLookupTable;
+//	private double[][] cSimMatrix; // userId x userId cosine similarity matrix, for now keep shaped as a square
+//	private HashMap<Integer, MovieVector> mVectors; // hashmap of userId, movieVector
+//	private int mVectorSize;
+//	private final float gAvg = 3.50115f;
 	
 	/**
 	 * 
@@ -24,49 +35,108 @@ public class NetflixPredictor {
 	 * @param linkFilePath The full path to the links database.
 	 */
 	public NetflixPredictor (String movieFilePath, String ratingFilePath, String tagFilePath, String linkFilePath) {
-		translator = new MovieLensCSVTranslator();
-		movies = new ArrayList<Movie>();
-		ratings = new HashMap<Integer, ArrayList<Rating>>(); // easily get ratings for movies
-		movieLookupTable= new HashMap<Integer, Movie>(); // can lookup Movie object by Id quickly
-		
+//		translator = new MovieLensCSVTranslator();
+//		movies = new ArrayList<Movie>();
+//		ratings = new HashMap<Integer, ArrayList<Rating>>(); // easily get ratings for movies
+//		movieLookupTable= new HashMap<Integer, Movie>(); // can lookup Movie object by Id quickly
+//		mVectors = new HashMap<Integer, MovieVector>();
+//		
 		String moviesFile = movieFilePath;
 		String ratingsFile = ratingFilePath;
 		String tagsFile = tagFilePath;
-		
-//		String moviesFile = "data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "movies.csv";
-//		String ratingsFile = "data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "ratings.csv";
-//		String tagsFile = "data" + FileIO.FILE_SEP + "ml-latest-small" + FileIO.FILE_SEP + "tags.csv";
-		
-		ArrayList<String> movieStrings = null;
+		translator = new MovieLensCSVTranslator();
+		movies = new ArrayList<Movie>();
+		ratings = new HashMap<Integer, ArrayList<Rating>>();
+		users = new HashMap<Integer, User>();
+		movieLookupTable = new HashMap<Integer, Movie>();
+		mvecs = new ArrayList<MVector>();
 		
 		try {
+			
+			// fill movies and ratings
+			ArrayList<String> movieStrings;
 			movieStrings = FileIO.readFile(moviesFile, 1);
 			for (String line : movieStrings) {
 				Movie m = translator.translateMovie(line);
 				movies.add(m);
 			}
-			
-			// consolidate ratings into HashMap
 			ratings = translator.parseRatings(ratingsFile);
 			
 			// loads ratings into movies
 			for (Movie m : movies) {
-				// populate movie lookup hashmap
 				movieLookupTable.put(m.getId(), m);
-				
-				// populate the ratings for this movie
-				m.setRatings(ratings);
-//				System.out.println(m.toString());
-//				System.out.println("Average rating: " + f);
-//				m.printRatings();
-//				System.out.println();
+				m.setRatings(ratings);	
 			}
+			
+			// populates the user hashmap with hashmap of ratings
+			for (Integer mRatingIndex : ratings.keySet()) {
+				for (Rating r : ratings.get(mRatingIndex)) {
+					if (!users.containsKey(r.getUser())) {
+						User u = new User(r.getUser());
+						u.uLoad(ratings);
+						// fill movieVector
+						MVector mvec = new MVector();
+						for (int i = 0; i < movies.size(); i++) {
+							if (u.getRating(movies.get(i).getId()) == -1) {
+								mvec.addSpace();
+							} else {
+								mvec.nextOn();
+							}
+						}
+						u.setMVec(mvec);
+						mvecs.add(mvec);
+						users.put(r.getUser(), u);
+					} 
+				}
+			}
+			
+			// converts mvecs into cSimMatrix
+			cSimMatrix = new MappableDouble[users.size()][users.size()];
+			int counter1 = -1;
+			for (Integer index1 : users.keySet()) {
+				counter1++;
+				int counter2 = -1;
+				for (Integer index2 : users.keySet()) {
+					counter2++;
+					double magicNumber = calcCosineSim(users.get(index1).getMVec(), users.get(index2).getMVec());
+					cSimMatrix[counter1][counter2] = new MappableDouble();
+					cSimMatrix[counter1][counter2].value = magicNumber;
+					cSimMatrix[counter1][counter2].pair = new Pair(users.get(index1), users.get(index2));
+				}
+			}
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			System.out.println("exiting...");
 		}
+	}
+	
+	private double calcCosineSim(MVector v1, MVector v2) {
+		
+		// find magnitudes of both vectors
+		int v1_sum = 0;
+		for (int i = 0; i < v1.size(); i++) {
+			v1_sum += v1.get(i);
+		}
+		double v1_magnitude = Math.sqrt(v1_sum);
+		
+		int v2_sum = 0;
+		for (int k = 0; k < v2.size(); k++) {
+			v2_sum += v2.get(k);
+		}
+		double v2_magnitude = Math.sqrt(v2_sum);
+		
+		// find the dotproduct of both vectors
+		double dotprod = 0;
+		for (int j = 0; j < v1.size(); j++) {
+			dotprod += (v1.get(j) * v2.get(j));
+		}
+		
+		// return the arccosine of the angle between them
+		return Math.acos((dotprod)/(v1_magnitude * v2_magnitude));
+		
 	}
 		
 	/**
@@ -77,12 +147,9 @@ public class NetflixPredictor {
 	 * @return The rating that userNumber gave movieNumber, or -1 if the user does not exist in the database, the movie does not exist, or the movie has not been rated by this user.
 	 */
 	public double getRating(int userID, int movieID) {
-		UserUtils.uSet(userID);
-		if (ratings.get(movieID) == null) {
-			return -1f;
-		}
-		UserUtils.uLoad(ratings);
-		return UserUtils.uGetRating(movieID);
+		User u = users.get(userID);
+		if (null == u) return -1;
+		return u.getRating(movieID);
 	}
 	
 	/**
@@ -94,10 +161,9 @@ public class NetflixPredictor {
 	 * @pre A user with id userID and a movie with id movieID exist in the database.
 	 */
 	public double guessRating(int userID, int movieID) {
-		// check if user already rated movie
-		UserUtils.uSet(userID);
-		UserUtils.uLoad(ratings);
-		float uRating = UserUtils.uGetRating(movieID);
+		
+		User u = users.get(userID);
+		float uRating = u.getRating(movieID);
 		if (uRating < 0) {
 			// lookup movie genres of specified movie
 			String genres[] = movieLookupTable.get(movieID).getGenres();
@@ -105,16 +171,16 @@ public class NetflixPredictor {
 			// loop through user rating file, check for genre
 			float sumRating = 0;
 			int n =0;
-			HashMap<Integer, Integer> moviesRated = UserUtils.uGetRatings(); // get rating for that user
+			HashMap<Integer, Integer> moviesRated = u.getRatings(); // get rating for that user
 			for (Integer movie : moviesRated.keySet()) {
 				// check if that movie has anything in genres[]
 				String[] movieGenres = movieLookupTable.get(movie).getGenres();
 				for (String movieGenre : movieGenres) {
 					for (String genre : genres) {
-						// TODO get rid of linear search?? String??
+						// get rid of linear search?? String??
 						if (movieGenre.equals(genre)) {
 							// one or more genres match, add weighting to rating
-							sumRating += UserUtils.uGetRating(movie);
+							sumRating += u.getRating(movie);
 							n++;
 						}
 					}
@@ -124,24 +190,10 @@ public class NetflixPredictor {
 			// weight with movie average rating
 			float mAvg = movieLookupTable.get(movieID).calcAvgRating(); // weight: 30
 			float uAvg = sumRating / ((float)n); // weight: 70
-			
-			// TODO work on user similarity
-			// cosine similarity matrix
+		
 			
 			// user has rated items in the genre before
 			if (0 != n) {
-				
-//				float weightedAvg;
-//				// check for outliers
-//				if (Math.abs(mAvg - uAvg) > 2) {
-//					// weight closer to user
-//					weightedAvg = (0.9f*uAvg) + (0.1f*mAvg);
-//				} else {
-//					weightedAvg = (0.85f*uAvg) + (0.15f*mAvg);
-//				}
-//				return weightedAvg;
-//				
-				
 				// new alg; checks for user similarity
 				float weightedAvg;
 				// check for outliers
@@ -149,12 +201,9 @@ public class NetflixPredictor {
 					// weight closer to user
 					weightedAvg = (0.9f*uAvg) + (0.1f*mAvg);
 				} else {
-					weightedAvg = (0.85f*uAvg) + (0.15f*mAvg);
+					weightedAvg = (0.8f*uAvg) + (0.2f*mAvg);
 				}
 				return weightedAvg;
-				
-				
-				
 			}
 			
 			// user does not have anything rated in the genre, return average movie rating weighted with user average rating
@@ -183,7 +232,54 @@ public class NetflixPredictor {
 	 * @pre A user with id userID exists in the database.
 	 */
 	public int recommendMovie(int userID) {
-
+		
+		// fix this somehow
+		
+		User u = null;
+		
+		int index1 = users.get(userID).getPos();
+		// get this user's cosine similarity array
+		MappableDouble[] cSimU = cSimMatrix[index1];
+		
+		// find the lowest value and position of the value associated with that
+		int pos = -1; // start off with a garbage value
+		MappableDouble lowest = cSimU[0]; // starting value
+		
+		// sets lowest to lowest value
+		for(int i = 0; i < cSimU.length; i++) {
+			if (i == index1) break;
+			if (cSimU[i].value < lowest.value) {
+				lowest = cSimU[i];
+			}
+		}
+		
+		//find user with position [index1, k] and set to user
+		for (int k = 0; k < cSimMatrix.length; k++) {
+			Pair p = lowest.pair;
+			if (p.getFront().getUserID() == userID) {
+				u = p.getBack();
+			} else {
+				u = p.getFront();
+			}
+		}
+		
+		
+		// go through user's ratings, return highest one
+		if (null != u) {
+			HashMap<Integer, Integer> uRatings = u.getRatings();
+			int highestRating = 0;
+			int mid = 0;
+			for (Integer i : uRatings.keySet()) {
+				// if user already rated movie prior to this
+				if (users.get(userID).getRating(i) != -1) break;
+				if (uRatings.get(i) > highestRating) {
+					highestRating = uRatings.get(i);
+					mid = i;
+				}
+			}
+			return mid;
+		} 
+		
 		return 0;
 	}
 	

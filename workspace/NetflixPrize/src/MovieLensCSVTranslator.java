@@ -23,7 +23,7 @@ public class MovieLensCSVTranslator {
 	}
 	
 	public void translateLink(String line, ArrayList<Movie> movies) {
-		// todo check imdb, etc.
+		// TODO check imdb, etc.
 	}
 	
 	//Hashmap<movieId, ArrayList<Rating>>
@@ -50,7 +50,7 @@ public class MovieLensCSVTranslator {
 				}
 			}
 			
-			// sort each ArrayList<Rating> in the hashmap
+			// sort each ArrayList<Rating> in the hashmap, no need to use linear search
 			for (Integer i : ratings.keySet()) {
 				Collections.sort(ratings.get(i));
 			}
@@ -59,5 +59,6 @@ public class MovieLensCSVTranslator {
 		}
 		return ratings;
 	}
+	
 
 }

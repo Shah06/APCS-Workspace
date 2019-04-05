@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class NetflixTester {
 	
-	public static final String baseFile = "testingDatasets" + FileIO.FILE_SEP + "5Ratings.csv";
-	public static final String testFile = "testingDatasets" + FileIO.FILE_SEP + "5Tests.csv";
+	public static final String baseFile = "testingDatasets" + FileIO.FILE_SEP + "4Ratings.csv";
+	public static final String testFile = "testingDatasets" + FileIO.FILE_SEP + "4Tests.csv";
 
 	
 	public static final String moviesFile = "ml-latest-small" + FileIO.FILE_SEP + "movies.csv";
@@ -122,6 +122,11 @@ public class NetflixTester {
 			numberTested++;
 			System.out.println("Tested " + (numberTested+numberPresent) + "/" + testDataLines.size());
 		}
+
+		/*
+		 * OTHER TESTS I ADDED IN
+		 */
+		System.out.println(tester.recommendMovie(1));
 		
 		System.out.println("\n***Stopping the clock***");
 		long endTime = System.currentTimeMillis();
@@ -137,7 +142,6 @@ public class NetflixTester {
 		System.out.println("Total difference between guessed and actual ratings: " + totalDifference);
 		System.out.println("Average difference between guessed and actual ratings: " + totalDifference/numberTested);
 		System.out.println("Root square mean difference between guessed and actual ratings: " + Math.sqrt(totalSquareDifference/numberTested));
-		
 		
 	}
 

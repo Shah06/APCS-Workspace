@@ -23,6 +23,7 @@ public class UserUtils {
 		userId = uid;
 	}
 	
+	
 	public static void uLoad(HashMap<Integer, ArrayList<Rating>> ratings) {
 		// overwrite moviesRated each time
 		moviesRated = new HashMap<Integer, Integer>();
@@ -31,10 +32,8 @@ public class UserUtils {
 //			System.out.println("movie is " + movie);
 			// for each rating in that movie
 			ArrayList<Rating> mRatings = ratings.get(movie);
-			// the following binary search is pointless and expensive (because it happens each time)
-			// TODO sort each ratings array at the start
-			Collections.sort(mRatings);
-			int i = Collections.binarySearch(mRatings, new Rating(userId, movie));
+			// the following binary search doesn't need to sort; ratings is already sorted (see MovieLensCSVTranslator)
+			int i = Collections.binarySearch(mRatings, new Rating(userId));
 			if (i > -1) {
 				moviesRated.put(mRatings.get(i).getMovieId(), mRatings.get(i).getRatingInt());
 			}
@@ -48,14 +47,6 @@ public class UserUtils {
 //			}
 		}
 	}
-	
-//	public static void uLoad(ArrayList<Rating> ratings, int movieId) {
-//		// note that ratings is already sorted
-//		int i = Collections.binarySearch(ratings, new Rating(userId, movieId));
-//		if (i > -1) {
-//			moviesRated.put(ratings.get(i).getMovieId(), ratings.get(i).getRatingInt());
-//		}
-//	}
 	
 	public static int uGetId() {
 		return userId;

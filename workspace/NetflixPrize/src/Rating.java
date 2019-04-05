@@ -4,10 +4,13 @@ public class Rating implements Comparable<Rating> {
 	private int rating; // stored as rating*10
 	private int movieId;
 	
-	// TODO add a dummy constructor
 	public Rating(int user, int movieId) {
 		this.user = user;
 		this.movieId = movieId;
+	}
+	
+	public Rating(int user) {
+		this.user = user;
 	}
 	
 	public Rating (float rating, int user, int movieId) {
@@ -37,6 +40,10 @@ public class Rating implements Comparable<Rating> {
 	@Override
 	public int compareTo(Rating other) {
 		return this.getUser() - other.getUser();
+	}
+	
+	public int compareTo(int uid) {
+		return user - uid;
 	}
 	// check 1 ID first, only check the other when the first is equal??
 	
