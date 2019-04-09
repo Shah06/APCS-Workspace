@@ -2,6 +2,7 @@
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JOptionPane;
 
@@ -54,10 +55,14 @@ public class DrawingSurface extends PApplet {
 			public void run() {
 				predictor = new NetflixPredictor(moviesFile,ratingsFile,tagsFile,linksFile);
 				
-				// int recommendedID = predictor.recommendMovie(currentUserID);
-				// Movie m = ...
-				// recommendedMovie = new DrawingMovie(m);
-				// recommendedMovie.downloadArt(DrawingSurface.this);
+				 int recommendedID = predictor.recommendMovie(currentUserID);
+				 
+				 ArrayList<Movie> movies = predictor.getMovies();
+				 int i = Collections.binarySearch(movies, new Movie(recommendedID));
+				 Movie m = movies.get(i);
+				 
+				 recommendedMovie = new DrawingMovie(m);
+				 recommendedMovie.downloadArt(DrawingSurface.this);
 				
 				predictorLoaded = true;
 			}

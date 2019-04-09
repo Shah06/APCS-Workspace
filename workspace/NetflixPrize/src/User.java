@@ -34,7 +34,10 @@ public class User {
 	
 	public float getRating(int movieID) {
 		if (null == ratings.get(movieID)) return -1;
-		return (float)ratings.get(movieID) / 10f;
+		if (ratings.containsKey(movieID)) {
+			return (float)ratings.get(movieID) / 10f;
+		}
+		return -1f;
 	}
 	
 	public String[] getGenres() {

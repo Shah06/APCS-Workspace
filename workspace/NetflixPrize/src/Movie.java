@@ -14,6 +14,8 @@ public class Movie implements Comparable<Movie> {
 	private int year;
 	private int[] ratings = null;
 	private float avgRating;
+	private String imdbID;
+	private int numRatings = 0;
 	
 	public Movie(int movieId) {
 		this.movieId = movieId;
@@ -24,6 +26,10 @@ public class Movie implements Comparable<Movie> {
 		this.movieTitle = movieTitle;
 		this.movieGenres = movieGenres;
 		this.year = year;
+	}
+	
+	public int getNumRatings() {
+		return numRatings;
 	}
 	
 	public int getId() {
@@ -43,6 +49,7 @@ public class Movie implements Comparable<Movie> {
 		}
 		ratings = new int[m_ratings.size()];
 		for (int i = 0; i < m_ratings.size(); i++) {
+			numRatings++;
 			ratings[i] = m_ratings.get(i).getRatingInt();
 		}
 		return true;
@@ -87,6 +94,15 @@ public class Movie implements Comparable<Movie> {
 				+ "genres: " + Arrays.toString(movieGenres) + "\n"
 				+ "year: " + yearDisplay
 				/*todo print user tags*/);
+	}
+	
+	public String getImdbURL() {
+		String s = "https://www.imdb.com/title/tt" + this.imdbID + "/";
+		return s;
+	}
+	
+	public void setImdbID(String s) {
+		this.imdbID = s;
 	}
 	
 	public String[] getGenres() {

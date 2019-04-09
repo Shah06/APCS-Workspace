@@ -45,7 +45,8 @@ public class DrawingMovie {
 				// Find the cover art using IMDB links
 				// Initialize coverArt
 				
-				String url = "https://www.imdb.com/title/tt0114709/"; // TOY STORY
+//				String url = "https://www.imdb.com/title/tt0114709/"; // TOY STORY
+				String url = movie.getImdbURL();
 				
 				Scanner scan = null;
 				try {

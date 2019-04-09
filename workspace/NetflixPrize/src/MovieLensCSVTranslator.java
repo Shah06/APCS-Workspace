@@ -22,15 +22,15 @@ public class MovieLensCSVTranslator {
 		return new Movie(movieId, movieTitle, movieGenres, year);
 	}
 	
-	public HashMap<Integer, Integer> translateLink(String fname) {
-		HashMap<Integer, Integer> imdb = new HashMap<Integer, Integer>();
+	public HashMap<Integer, String> translateLink(String fname) {
+		HashMap<Integer, String> imdb = new HashMap<Integer, String>();
 		ArrayList<String> list = null;
 		try {
 			list = FileIO.readFile(fname, 1);
 			String[] splits = null;
 			for (String line : list) {
 				splits = line.split(",");
-				imdb.put(Integer.parseInt(splits[0]), Integer.parseInt(splits[1]));
+				imdb.put(Integer.parseInt(splits[0]), splits[1]);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

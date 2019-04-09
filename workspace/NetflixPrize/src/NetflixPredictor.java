@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class NetflixPredictor {
 	private MappableDouble[][] cSimMatrix; // rename later
 	private HashMap<Integer, Movie> movieLookupTable;
 	private ArrayList<MVector> mvecs;
+	private HashMap<Integer, String> links;
 	
 //	private MovieLensCSVTranslator translator;
 //	private ArrayList<Movie> movies;
@@ -51,6 +53,7 @@ public class NetflixPredictor {
 		users = new HashMap<Integer, User>();
 		movieLookupTable = new HashMap<Integer, Movie>();
 		mvecs = new ArrayList<MVector>();
+		links = new HashMap<Integer, String>();
 		
 		try {
 			
@@ -63,12 +66,14 @@ public class NetflixPredictor {
 			}
 			ratings = translator.parseRatings(ratingsFile);
 			
-			ArrayList<Integer> imdb_urls = new ArrayList<Integer>();
+			// load imdb
+			links = translator.translateLink(linksFile);
 			
-			// loads ratings into movies
+			// loads ratings and imdb into movies
 			for (Movie m : movies) {
 				movieLookupTable.put(m.getId(), m);
 				m.setRatings(ratings);
+				m.setImdbID(links.get(m.getId()));
 			}
 			
 			// populates the user hashmap with hashmap of ratings
@@ -236,55 +241,85 @@ public class NetflixPredictor {
 	 */
 	public int recommendMovie(int userID) {
 		
-		// fix this somehow
 		
-		User u = null;
-		
-//		int index1 = users.get(userID).getPos();
-		int index1 = userID-1;
-		// get this user's cosine similarity array
-		MappableDouble[] cSimU = cSimMatrix[index1];
-		
-		// find the lowest value and position of the value associated with that
-		MappableDouble lowest = new MappableDouble(); // garbage value
-		lowest.value = 30; // garbage for now
-		
-		// sets lowest to lowest value
-		for(int i = 0; i < cSimU.length; i++) {
-			if (i == index1) continue;
-			if (cSimU[i].value < lowest.value) {
-				lowest = cSimU[i];
+		// get array of all guessratings
+			// check if user has rated movie before
+		// return highest value
+		float highrating = -1;
+		int mid = -1;
+		List<Rating> guesses = new ArrayList<Rating>();
+		for (Movie movie : movies) {
+			User u = new User(userID);
+			u.uLoad(ratings);
+			
+			// if user has rated movie before
+			if (u.getRating(movie.getId()) < 0) continue;
+			
+			// add to ratings list
+			float f = (float)this.guessRating(userID, movie.getId());
+			// ensures movie has at least 100 ratings, doesn't work rn
+			if (f > highrating && movie.getNumRatings() < 100) {
+				highrating = f;
+				mid = movie.getId();
+				System.out.println(f);
 			}
+			guesses.add(new Rating(f, userID, movie.getId()));
 		}
 		
-		//find user with position [index1, k] and set to user
-		for (int k = 0; k < cSimMatrix.length; k++) {
-			Pair p = lowest.pair;
-			if (p.getFront().getUserID() == userID) {
-				u = p.getBack();
-			} else {
-				u = p.getFront();
-			}
-		}
+		return mid;
 		
 		
-		// go through user's ratings, return highest one
-		if (null != u) {
-			HashMap<Integer, Integer> uRatings = u.getRatings();
-			int highestRating = 0;
-			int mid = 0;
-			for (Integer i : uRatings.keySet()) {
-				// if user already rated movie prior to this
-				if (users.get(userID).getRating(i) != -1) break;
-				if (uRatings.get(i) > highestRating) {
-					highestRating = uRatings.get(i);
-					mid = i;
-				}
-			}
-			return mid;
-		} 
 		
-		return -1;
+		
+//		// fix this somehow
+//		
+//		User u = null;
+//		
+////		int index1 = users.get(userID).getPos();
+//		int index1 = userID-1;
+//		// get this user's cosine similarity array
+//		MappableDouble[] cSimU = cSimMatrix[index1];
+//		
+//		// find the lowest value and position of the value associated with that
+//		MappableDouble lowest = new MappableDouble(); // garbage value
+//		lowest.value = 30; // garbage for now
+//		
+//		// sets lowest to lowest value
+//		for(int i = 0; i < cSimU.length; i++) {
+//			if (i == index1) continue;
+//			if (cSimU[i].value < lowest.value) {
+//				lowest = cSimU[i];
+//			}
+//		}
+//		
+//		//find user with position [index1, k] and set to user
+//		for (int k = 0; k < cSimMatrix.length; k++) {
+//			Pair p = lowest.pair;
+//			if (p.getFront().getUserID() == userID) {
+//				u = p.getBack();
+//			} else {
+//				u = p.getFront();
+//			}
+//		}
+//		
+//		
+//		// go through user's ratings, return highest one
+//		if (null != u) {
+//			HashMap<Integer, Integer> uRatings = u.getRatings();
+//			int highestRating = 0;
+//			int mid = 0;
+//			for (Integer i : uRatings.keySet()) {
+//				// if user already rated movie prior to this
+//				if (users.get(userID).getRating(i) != -1) break;
+//				if (uRatings.get(i) > highestRating) {
+//					highestRating = uRatings.get(i);
+//					mid = i;
+//				}
+//			}
+//			return mid;
+//		} 
+//		
+//		return -1;
 		
 	}
 	

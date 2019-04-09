@@ -45,7 +45,6 @@ public class Rating implements Comparable<Rating> {
 	public int compareTo(int uid) {
 		return user - uid;
 	}
-	// check 1 ID first, only check the other when the first is equal??
-	
+	// check 1 ID first, only check the other when the first is equal?/
 	
 }
