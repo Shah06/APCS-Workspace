@@ -53,11 +53,21 @@ public class DrawingSurface extends PApplet {
 	public void initializePredictor() {
 		new Thread() {
 			public void run() {
-				predictor = new NetflixPredictor(moviesFile,ratingsFile,tagsFile,linksFile);
+				if (!predictorLoaded) {
+					System.out.println("INITIALIZING NEW PREDICTOR");
+					predictor = new NetflixPredictor(moviesFile,ratingsFile,tagsFile,linksFile);
+				}
 				
-				 int recommendedID = predictor.recommendMovie(currentUserID);
-				 
+				int recommendedID = -1;
+				 try {
+				 	recommendedID = predictor.recommendMovie(currentUserID);
+				 } catch (ArrayIndexOutOfBoundsException e) { // csimmatrix is buggy as of now, so fallback to safemode
+				 	recommendedID = predictor.recommendedMovie(currentUserID, true);
+				 }
+
 				 ArrayList<Movie> movies = predictor.getMovies();
+				 // TODO sort movies
+				 System.out.println(recommendedID);
 				 int i = Collections.binarySearch(movies, new Movie(recommendedID));
 				 Movie m = movies.get(i);
 				 

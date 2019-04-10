@@ -61,7 +61,6 @@ public class DrawingMovie {
 					}
 					
 					String imgURL = output.substring(output.indexOf("\"image\": \"h")+10, output.indexOf("V1_.jpg\"")+7);
-					System.out.println(imgURL);
 					
 					// find distinguishing parts of the text and use cover art to find the URL
 					coverArt = drawer.loadImage(imgURL);

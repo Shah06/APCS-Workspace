@@ -17,6 +17,7 @@ public class NetflixPredictor {
 	private HashMap<Integer, Movie> movieLookupTable;
 	private ArrayList<MVector> mvecs;
 	private HashMap<Integer, String> links;
+	private boolean threadFinished = false;
 	
 //	private MovieLensCSVTranslator translator;
 //	private ArrayList<Movie> movies;
@@ -75,6 +76,7 @@ public class NetflixPredictor {
 				m.setRatings(ratings);
 				m.setImdbID(links.get(m.getId()));
 			}
+			Collections.sort(movies); // sorts movies by ID
 			
 			// populates the user hashmap with hashmap of ratings
 			for (Integer mRatingIndex : ratings.keySet()) {
@@ -100,25 +102,29 @@ public class NetflixPredictor {
 			
 			// converts mvecs into cSimMatrix
 			cSimMatrix = new MappableDouble[users.size()][users.size()];
-//			int counter1 = -1;
-//			for (Integer index1 : users.keySet()) {
-//				counter1++;
-//				int counter2 = -1;
-//				for (Integer index2 : users.keySet()) {
-//					counter2++;
-//					double magicNumber = calcCosineSim(users.get(index1).getMVec(), users.get(index2).getMVec());
-//					cSimMatrix[counter1][counter2] = new MappableDouble();
-//					cSimMatrix[counter1][counter2].value = magicNumber;
-//					cSimMatrix[counter1][counter2].pair = new Pair(users.get(index1), users.get(index2));
-//				}
-//			}
+			new Thread() {
+				public void run() {
+					int counter1 = -1;
+					for (Integer index1 : users.keySet()) {
+						counter1++;
+						int counter2 = -1;
+						for (Integer index2 : users.keySet()) {
+							counter2++;
+							double magicNumber = calcCosineSim(users.get(index1).getMVec(), users.get(index2).getMVec());
+							cSimMatrix[counter1][counter2] = new MappableDouble();
+							cSimMatrix[counter1][counter2].value = magicNumber;
+							cSimMatrix[counter1][counter2].pair = new Pair(users.get(index1), users.get(index2));
+						}
+					}
+					threadFinished = true;
+					System.out.println("THREAD HAS FINISHED LOADING CSIMMATRIX");
+				}
+			}.start();
 			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			System.out.println("exiting...");
-		}
+		} finally { }
 	}
 	
 	private double calcCosineSim(MVector v1, MVector v2) {
@@ -232,6 +238,10 @@ public class NetflixPredictor {
 		
 	}
 	
+	public int recommendMovie(int userID) {
+		this(userID, false);
+	}
+
 	/**
 	 * Recommend a movie that you think this user would enjoy (but they have not currently rated it). 
 	 * 
@@ -239,87 +249,78 @@ public class NetflixPredictor {
 	 * @return The ID of a movie that data suggests this user would rate highly (but they haven't rated it currently).
 	 * @pre A user with id userID exists in the database.
 	 */
-	public int recommendMovie(int userID) {
+	public int recommendMovie(int userID, boolean safemode) {
 		
-		
-		// get array of all guessratings
-			// check if user has rated movie before
-		// return highest value
-		float highrating = -1;
-		int mid = -1;
-		List<Rating> guesses = new ArrayList<Rating>();
-		for (Movie movie : movies) {
-			User u = new User(userID);
-			u.uLoad(ratings);
-			
-			// if user has rated movie before
-			if (u.getRating(movie.getId()) < 0) continue;
-			
-			// add to ratings list
-			float f = (float)this.guessRating(userID, movie.getId());
-			// ensures movie has at least 100 ratings, doesn't work rn
-			if (f > highrating && movie.getNumRatings() < 100) {
-				highrating = f;
-				mid = movie.getId();
-				System.out.println(f);
+		// if cSimMatrix thread isn't loaded, or safemode is on
+		if (!threadFinished || safemode) {
+			float highrating = -1;
+			int mid = -1;
+			List<Rating> guesses = new ArrayList<Rating>();
+			for (Movie movie : movies) {
+				User u = new User(userID);
+				u.uLoad(ratings);
+				
+				// if user has rated movie before
+				if (u.getRating(movie.getId()) < 0) continue;
+				
+				// add to ratings list
+				float f = (float)this.guessRating(userID, movie.getId());
+				// ensures movie has at least 1000 ratings
+				if (movie.getNumRatings() > 100 && f > highrating) {
+					highrating = f;
+					mid = movie.getId();
+				}
+				guesses.add(new Rating(f, userID, movie.getId()));
 			}
-			guesses.add(new Rating(f, userID, movie.getId()));
+			
+			return mid;
 		}
 		
-		return mid;
+		// else if csimmatrix is loaded
+		User u = null;
+		int index1 = userID-1;
+		// get this user's cosine similarity array
+		MappableDouble[] cSimU = cSimMatrix[index1];
 		
+		// find the lowest value and position of the value associated with that
+		MappableDouble lowest = new MappableDouble(); // garbage value
+		lowest.value = 30; // garbage for now
 		
+		// sets lowest to lowest value
+		for(int i = 0; i < cSimU.length; i++) {
+			if (i == index1) continue;
+			if (cSimU[i].value < lowest.value) {
+				lowest = cSimU[i];
+			}
+		}
 		
+		//find user with position [index1, k] and set to user
+		for (int k = 0; k < cSimMatrix.length; k++) {
+			Pair p = lowest.pair;
+			if (p.getFront().getUserID() == userID) {
+				u = p.getBack();
+			} else {
+				u = p.getFront();
+			}
+		}
 		
-//		// fix this somehow
-//		
-//		User u = null;
-//		
-////		int index1 = users.get(userID).getPos();
-//		int index1 = userID-1;
-//		// get this user's cosine similarity array
-//		MappableDouble[] cSimU = cSimMatrix[index1];
-//		
-//		// find the lowest value and position of the value associated with that
-//		MappableDouble lowest = new MappableDouble(); // garbage value
-//		lowest.value = 30; // garbage for now
-//		
-//		// sets lowest to lowest value
-//		for(int i = 0; i < cSimU.length; i++) {
-//			if (i == index1) continue;
-//			if (cSimU[i].value < lowest.value) {
-//				lowest = cSimU[i];
-//			}
-//		}
-//		
-//		//find user with position [index1, k] and set to user
-//		for (int k = 0; k < cSimMatrix.length; k++) {
-//			Pair p = lowest.pair;
-//			if (p.getFront().getUserID() == userID) {
-//				u = p.getBack();
-//			} else {
-//				u = p.getFront();
-//			}
-//		}
-//		
-//		
-//		// go through user's ratings, return highest one
-//		if (null != u) {
-//			HashMap<Integer, Integer> uRatings = u.getRatings();
-//			int highestRating = 0;
-//			int mid = 0;
-//			for (Integer i : uRatings.keySet()) {
-//				// if user already rated movie prior to this
-//				if (users.get(userID).getRating(i) != -1) break;
-//				if (uRatings.get(i) > highestRating) {
-//					highestRating = uRatings.get(i);
-//					mid = i;
-//				}
-//			}
-//			return mid;
-//		} 
-//		
-//		return -1;
+		// go through user's ratings, return highest one
+		if (null != u) {
+			HashMap<Integer, Integer> uRatings = u.getRatings();
+			int highestRating = 0;
+			int mid = 0;
+			for (Integer i : uRatings.keySet()) {
+				// if user already rated movie prior to this
+				if (users.get(userID).getRating(i) != -1) break;
+				if (uRatings.get(i) > highestRating) {
+					highestRating = uRatings.get(i);
+					mid = i;
+				}
+			}
+			return mid;
+		} 
+		
+		return -1;
 		
 	}
 	
