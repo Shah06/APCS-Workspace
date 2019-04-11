@@ -59,17 +59,19 @@ public class DrawingSurface extends PApplet {
 				}
 				
 				int recommendedID = -1;
-				 try {
-				 	recommendedID = predictor.recommendMovie(currentUserID);
-				 } catch (ArrayIndexOutOfBoundsException e) { // csimmatrix is buggy as of now, so fallback to safemode
-				 	recommendedID = predictor.recommendedMovie(currentUserID, true);
-				 }
+				ArrayList<Movie> movies = predictor.getMovies();
+				recommendedID = predictor.recommendMovie(currentUserID);
+				int i = Collections.binarySearch(movies, new Movie(recommendedID));
+				if (i == -1) { // if invalid movieID, call failsafe mode
+					System.out.println("FAILSAFE MODE...");
+					recommendedID = predictor.recommendMovie(currentUserID, true);
+					i = Collections.binarySearch(movies, new Movie(recommendedID));
+				}
+				Movie m = movies.get(i);
+				
 
-				 ArrayList<Movie> movies = predictor.getMovies();
-				 // TODO sort movies
 				 System.out.println(recommendedID);
-				 int i = Collections.binarySearch(movies, new Movie(recommendedID));
-				 Movie m = movies.get(i);
+				 
 				 
 				 recommendedMovie = new DrawingMovie(m);
 				 recommendedMovie.downloadArt(DrawingSurface.this);

@@ -239,7 +239,7 @@ public class NetflixPredictor {
 	}
 	
 	public int recommendMovie(int userID) {
-		this(userID, false);
+		return recommendMovie(userID, false);
 	}
 
 	/**
