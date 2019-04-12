@@ -10,6 +10,9 @@ public class ElevatorTester extends JPanel implements ActionListener {
   private JButton act;
   private Elevator theElevator;
   
+  private JButton save;
+  private JButton load;
+  
   public ElevatorTester() {
   	super(new BorderLayout());
   	
@@ -18,6 +21,8 @@ public class ElevatorTester extends JPanel implements ActionListener {
   	buttons[1] = new JButton("2");
   	buttons[2] = new JButton("3");
   	act = new JButton("ACT");
+  	save = new JButton("SAVE");
+  	load = new JButton("LOAD");
   	
   	for(JButton b : buttons)
   		b.setBackground(Color.LIGHT_GRAY);
@@ -38,6 +43,12 @@ public class ElevatorTester extends JPanel implements ActionListener {
   	top.add(buttonBox);
   	right.add(top);
   	
+  	load.addActionListener(this);
+  	right.add(load);
+  	
+  	save.addActionListener(this);
+  	right.add(save);
+  	
   	act.addActionListener(this);
   	bottom.add(act);
   	right.add(act);
@@ -55,6 +66,29 @@ public class ElevatorTester extends JPanel implements ActionListener {
   	}
   	if (e.getSource() == act) {
   		theElevator.act();
+  	}
+  	
+  	if (e.getSource() == save) {
+  		
+  		// call method to save the elevator
+  		Elevator.saveState(theElevator, "elevator.sse");
+  		
+  	}
+  	
+  	if (e.getSource() == load) {
+  		
+  		// call the method to load the elevator
+  		// if its null, do nothing
+  		// if its not null, initialize the transient fields
+  			// initialize the transient fields
+  			// overwrite the old elevator
+  		Elevator el = Elevator.loadState("elevator.sse");
+  		if (null != el) {
+  			el.initializeGUI(act, buttons);
+  			theElevator = el;
+  			revalidate();
+  		}
+  		
   	}
   		
   }

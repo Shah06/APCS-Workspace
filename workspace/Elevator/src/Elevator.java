@@ -5,27 +5,39 @@
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.awt.event.*;
 import javax.swing.*;
 
 
-public class Elevator extends JPanel implements ActionListener
+public class Elevator extends JPanel implements ActionListener, Serializable
 {
-  private static final int ACT_LAG_TIME = 2000;
-
-  private JButton swingAct;
-  private JButton[] swingButtons;
-  private Timer clock;
-  private int floor;
-
-  // OUTPUTS
-  private boolean doorOpen, lightUp, lightDown;
-  private boolean[] direction;
-
-  // INPUTS
-  private boolean[] buttons;
-
-
+  
+	private static final long serialVersionUID = 1L;
+	
+	private static final int ACT_LAG_TIME = 2000;
+	
+	
+	// GUI COMPONENTS
+	private transient JButton swingAct;
+	private transient JButton[] swingButtons;
+	private transient Timer clock;
+	
+	private int floor;
+	
+	// OUTPUTS
+	private boolean doorOpen, lightUp, lightDown;
+	private boolean[] direction;
+	
+	// INPUTS
+	private boolean[] buttons;
+	
+	
   public Elevator (JButton swingAct, JButton[] swingButtons) {
 	  super();
 	  this.swingButtons = swingButtons;
@@ -37,6 +49,62 @@ public class Elevator extends JPanel implements ActionListener
 	  setBackground(Color.WHITE);
   	  clock = new Timer(ACT_LAG_TIME,this);
   }
+  
+  
+  public static void saveState(Elevator e, String filename) {
+	  FileOutputStream fos;
+	  ObjectOutputStream oos = null;
+	  try {
+		  fos = new FileOutputStream(filename);
+		  oos = new ObjectOutputStream(fos);
+		  oos.writeObject(e);
+	  } catch (IOException ioe) {
+		  ioe.printStackTrace();
+	  } finally {
+		  if (null != oos) {
+			  try {
+				oos.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		  }
+	  }
+  }
+  
+  public static Elevator loadState(String filename) {
+	  FileInputStream fis;
+	  ObjectInputStream ois = null;
+	  try {
+		  fis = new FileInputStream(filename);
+		  ois = new ObjectInputStream(fis);
+		  Object o = ois.readObject();
+		  return (Elevator) o;
+	  } catch (IOException ioe) {
+		  ioe.printStackTrace();
+	  } catch (ClassNotFoundException cnfe) {
+		  cnfe.printStackTrace();
+	  } finally {
+		  if (null != ois) {
+			  try {
+				ois.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		  }
+	  }
+	  
+	  return null; // in case its invalid
+	  
+  }
+  
+  public void initializeGUI(JButton swingAct, JButton[] swingButtons) {
+	  this.swingButtons = swingButtons;
+	  this.swingAct = swingAct;
+	  clock = new Timer(ACT_LAG_TIME,this);
+  }
+  
 
   public void act() {
   	swingAct.setEnabled(false);
@@ -44,7 +112,7 @@ public class Elevator extends JPanel implements ActionListener
   	setFloor(floor);
   	repaint();
   }
-
+  
   public void actionPerformed(ActionEvent e) {
   	clock.stop();
   	if (direction[0] && direction[1])
