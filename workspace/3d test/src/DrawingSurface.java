@@ -27,6 +27,9 @@ public class DrawingSurface extends PApplet {
 
 	public void draw() {
 		
+		// no mouse cursor
+		noCursor();
+		
 //		pushMatrix();
 //		translate(width/2, height/2, 0);
 //		rotateZ(PI/8);
