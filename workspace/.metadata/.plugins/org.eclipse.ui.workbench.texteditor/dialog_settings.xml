@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="act(" key="selection"/>
+		<item value="speed" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="speed"/>
 			<item value="act("/>
 			<item value="act"/>
 			<item value="Pair"/>
@@ -22,7 +23,6 @@
 			<item value="ratings"/>
 			<item value="113228"/>
 			<item value="initializePredictor"/>
-			<item value="sort"/>
 		</list>
 		<list key="replacehistory">
 			<item value="ratings"/>
@@ -43,9 +43,9 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="284" key="DIALOG_WIDTH"/>
-		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
-		<item value="390" key="DIALOG_HEIGHT"/>
+		<item value="298" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-27|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="407" key="DIALOG_HEIGHT"/>
 		<item value="676" key="DIALOG_X_ORIGIN"/>
 		<item value="239" key="DIALOG_Y_ORIGIN"/>
 	</section>

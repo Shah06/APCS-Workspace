@@ -25,6 +25,14 @@
 		<item value="Aggregate for window 1534957877951" key="ResourceWorkingSetFilter.STORE_WORKING_SET"/>
 		<item value="1" key="ResourceViewer.STORE_SORT_TYPE"/>
 	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item value="617" key="DIALOG_X_ORIGIN"/>
+		<item value="287" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="SaveAsDialogSettings">
 		<item value="525" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI" key="DIALOG_FONT_NAME"/>
