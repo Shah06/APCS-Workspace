@@ -36,9 +36,10 @@ public class DrawingSurface extends PApplet {
 //		float cameraZ = (float) ((height/2.0) / tan ((float) (PI*60.0/360.0)));
 //		perspective(fov, (float) width/height, cameraZ/10, cameraZ*100);
 		perspective(); // solves issue where black bars would cover everything
-		shape = loadShape("model.obj");
+//		shape = loadShape("model.obj");
 		shapeMode(CORNER);
-		map = new Map("model.obj", this);
+		map = new Map("shape.obj", this);
+		map.setTexture(loadImage("Rock.jpg"));
 	}
 
 	PVector light;
@@ -62,21 +63,19 @@ public class DrawingSurface extends PApplet {
 		noCursor();
 		background(0);
 		lights();
+		ambientLight(255, 255, 255);
 		noFill();
 //		ambientLight(75, 75, 75);
 //		spotLight(  0,   0, 255, xPos, yPos, zPos, x, y, z, PI/2, 2);
-		spotLight(  0,   0, 255, xPos, yPos, zPos, x, y, z, PI/4, 2);
-		spotLight(255,   0,   0, xPos, yPos, zPos, x, y, z, PI/6, 20);
+		spotLight( 255, 255, 255, xPos, yPos, zPos, x, y, z, PI/4, 2);
+//		spotLight(255,   0,   0, xPos, yPos, zPos, x, y, z, PI/6, 20);
 		
 		pushMatrix();
 		pushMatrix();
 		scale(SCALING_FACTOR);
 		map.draw();
-		if (mousePressed) {
-			map.rotate();
-		}
 		popMatrix();
-		box(map.getWidth()*SCALING_FACTOR, map.getHeight()*SCALING_FACTOR, map.getDepth()*SCALING_FACTOR); // bounding rectangles
+//		box(map.getWidth()*SCALING_FACTOR, map.getHeight()*SCALING_FACTOR, map.getDepth()*SCALING_FACTOR); // bounding rectangles
 		popMatrix();
 //		
 //		// test shape
